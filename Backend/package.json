@@ -1,0 +1,11 @@
+{
+  "name": "clothing-rental-system",
+  "version": "1.0.0",
+  "description": "Clothing rental system is a C2C system where customer can put their clothing items for rent and also can rented the clothing items ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Asmita, Mahima,Sabina",
+  "license": "ISC"
+}
