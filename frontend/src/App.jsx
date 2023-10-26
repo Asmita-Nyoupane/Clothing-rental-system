@@ -1,14 +1,15 @@
 import React from 'react'
-import Home from './Home'
+import Home from './Components/Home/Home'
 import Login from './Components/Login'
 import Register from './Components/Register'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
+import Navbar from './Components/Navbar/Navbar'
 
  const App = () => {
   return (
     <>
-    
     <BrowserRouter>
+    <Navbar/>
       <Routes>
          <Route path="/" element={<Home/>}/> 
         <Route path="/login" element={<Login/>}/>
