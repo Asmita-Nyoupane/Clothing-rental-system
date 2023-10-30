@@ -1,6 +1,9 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext} from "react";
 import { Link } from "react-router-dom";
+import { API } from "../service/api";
+import { DataContext } from "../context/DataProvider";
+import { useNavigate } from "react-router-dom";
 
 const loginInitialValues = {
   email: "",
@@ -8,10 +11,35 @@ const loginInitialValues = {
 };
 
 const Login = () => {
+
   const [login, setLogin] = useState(loginInitialValues);
+  const [error, setError] = useState('');
+  const {setAccount} = useContext(DataContext);
+  const navigate = useNavigate();
+
   const onInputChange = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value });
   };
+
+  const loginUser =async(e)=>{
+    e.preventDefault(); // Prevent the default form submission behavior
+    try {
+      let response= await API.userLogin(login)
+      if (response && response.isSuccess) {
+        setError('');
+       sessionStorage.setItem('accesstoken',`Bearer ${response.data.accessToken}`);
+       sessionStorage.setItem('refreshToken',`Bearer ${response.data.refreshToken}`);
+       setAccount({name:response.data.name, phone: response.data.phone})
+       setLogin(loginInitialValues)
+        navigate('/');
+      } else {
+        setError('Something went wrong! Please try again later.');
+      }
+    } catch (error) {
+      console.log(error)
+      setError('Something went wrong ! Please try again later.');
+    }
+  }
   return (
     <div className="container-fluid mt-5">
       <div className="row  justify-content-center">
@@ -19,12 +47,11 @@ const Login = () => {
           <div className="card">
             <div className="card-body">
               <h3 className="card-title text-center">Login</h3>
-              <form>
+              <form  autoComplete="off">
                 <div className="mb-3">
                   <label
                     htmlFor="email"
                     className="form-label"
-                    onChange={(e) => onInputChange(e)}
                   >
                     Email
                   </label>
@@ -32,14 +59,17 @@ const Login = () => {
                     type="text"
                     className="form-control form-control-sm"
                     id="email"
+                    value={login.email}
+                    name="email"
                     style={{ borderRadius: "5px" }}
+                    autoComplete="email"
+                    onChange={(e) => onInputChange(e)}
                   />
                 </div>
                 <div className="mb-3">
                   <label
                     htmlFor="password"
                     className="form-label"
-                    onChange={(e) => onInputChange(e)}
                   >
                     Password
                   </label>
@@ -47,11 +77,16 @@ const Login = () => {
                     type="password"
                     className="form-control  form-control-sm"
                     id="password"
+                    value={login.password}
+                    name="password"
+                    onChange={(e) => onInputChange(e)}
+                    autoComplete="current-password"
                     style={{ borderRadius: "5px" }}
                   />
                 </div>
+                {error && <span style={{color: '#c93737',fontSize: '14px',marginTop: '5px', lineHeight:'0',fontWeight:'600'}}>{error}</span>}
                 <button
-                  type="submit"
+                  type="button"
                   className="btn btn-primary"
                   style={{
                     background: "#007BFF",
@@ -61,6 +96,7 @@ const Login = () => {
                     padding: " 10px 20px",
                     margin: "10px 140px",
                   }}
+                  onClick={(e) => loginUser(e)} 
                 >
                   Login
                 </button>
