@@ -2,6 +2,7 @@ import React from 'react'
 import Home from './Components/Home/Home'
 import Login from './Components/Login'
 import Register from './Components/Register'
+import Lend from './Components/Lend/Lend'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Navbar from './Components/Navbar/Navbar'
 
@@ -14,6 +15,7 @@ import Navbar from './Components/Navbar/Navbar'
          <Route path="/" element={<Home/>}/> 
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register />} />
+        <Route path="/lend" element={<Lend/>}/>
       </Routes>
     </BrowserRouter>
       </>
