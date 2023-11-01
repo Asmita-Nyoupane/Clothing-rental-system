@@ -1,13 +1,13 @@
 import React from "react";
 import fashionImage from '../../assets/fashion.webp';
-// import Navbar  from './Components/Navbar/Navbar'
+
 
 import "./Home.css";
 
 const Home = () => {
   return (
     <>
-      {/* <Navbar/> */}
+
       <div className="container">
         <h1>Welcome to Clothing Rental System</h1>
         <img
