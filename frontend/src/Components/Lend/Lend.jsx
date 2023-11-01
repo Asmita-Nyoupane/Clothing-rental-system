@@ -148,6 +148,7 @@ const Lend = () => {
             />
             {uploadImageError && <div className="error-message">{uploadImageError}</div>}
           </div>
+          
   
           <button type="submit">Submit</button>
         </form>
