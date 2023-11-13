@@ -4,6 +4,10 @@ import Login from './Components/Login'
 import Register from './Components/Register'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Navbar from './Components/Navbar/Navbar'
+import About from './Components/About'
+import Getstarted from './Components/About'
+ 
+
 
  const App = () => {
   return (
@@ -14,6 +18,9 @@ import Navbar from './Components/Navbar/Navbar'
          <Route path="/" element={<Home/>}/> 
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register />} />
+        <Route path="/about" element={< About />} />
+        <Route path="/" element={< Getstarted/>} />
+ 
       </Routes>
     </BrowserRouter>
       </>
