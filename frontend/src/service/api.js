@@ -1,5 +1,6 @@
 import axios from 'axios'; 
 import { API_NOTIFICATION_MESSAGES,SERVICE_URL } from '../constants/config';
+import { getAccessToken } from '../utils/common_utils';
 const API_URL =  "http://localhost:5001"
  const axiosInstance = axios.create({
     baseURL:API_URL,
@@ -54,7 +55,7 @@ else{
 const processError=(error)=>{
     if(error.response){
         
-        // request  made  and server responded with a status other that falls out of ranfe 2.x.x
+        // request  made  and server responded with a status other that falls out of range 2.x.x
         console.log('Error in response:', error.toJSON());
         return{
             isError:true,
@@ -88,6 +89,9 @@ for (const [key, value] of Object.entries(SERVICE_URL)) {
       url: value.url,
       data: body,
       responseType: value.responseType,
+      headers:{
+        authorization:getAccessToken()
+      },
       onUploadProgress: function (progressEvent) {
         if (showUploadProgress) {
           let percentageCompleted = Math.round(

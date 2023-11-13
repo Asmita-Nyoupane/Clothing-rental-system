@@ -3,7 +3,7 @@ require("dotenv").config();
 const mongoURI = process.env.URL;
 async function connectToMongo() {
   await mongoose
-    .connect(mongoURI)
+    .connect(mongoURI,{ useNewUrlParser: true })
     .then(() => console.log("Connected to Mongo Successfully"))
     .catch((err) => console.log(err));
 }

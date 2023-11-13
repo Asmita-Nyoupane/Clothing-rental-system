@@ -28,5 +28,7 @@ export const API_NOTIFICATION_MESSAGES={
 // NEED SERVICE CALL:{url:'/', method:'post/get/put/delete', params:true/false, query:true/fasle}
  export const  SERVICE_URL ={
     userSignup:{url:'/signup', method:'POST'},
-    userLogin:{url:'/login', method:'POST'}
+    userLogin:{url:'/login', method:'POST'},
+    uploadFile:{url:'/file/upload',method:'POST'},
+    createPost:{url:'create',method:'POST'}
  }
