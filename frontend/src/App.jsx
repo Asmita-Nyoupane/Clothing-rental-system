@@ -1,9 +1,11 @@
 import React from 'react'
 import Home from './Components/Home/Home'
 import Login from './Components/Login'
-import Register from './Components/Register'
+import Lend from './Components/Lend/Lend'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Navbar from './Components/Navbar/Navbar'
+import Signup from './Components/Signup'
+import DataProvider from './context/DataProvider'
 import About from './Components/About'
 import Getstarted from './Components/About'
  
@@ -14,14 +16,17 @@ import Getstarted from './Components/About'
     <>
     <BrowserRouter>
     <Navbar/>
+    <DataProvider>
       <Routes>
          <Route path="/" element={<Home/>}/> 
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login/>}/>  
+               <Route path="/lend" element={<Lend/>}/>
+        <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={< About />} />
-        <Route path="/" element={< Getstarted/>} />
+        <Route path="/getstarted" element={< Getstarted/>} />
  
       </Routes>
+      </DataProvider>
     </BrowserRouter>
       </>
   )
