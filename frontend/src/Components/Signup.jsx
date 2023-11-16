@@ -28,7 +28,7 @@ const Signup = () => {
       if (response && response.isSuccess) {
         setError("");
         setSignup(signupInitialValues);
-        navigate("/");
+        navigate("/login");
       } else {
         setError("Something went wrong! Please try again later.");
       }

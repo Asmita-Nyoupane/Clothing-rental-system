@@ -6,20 +6,26 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Navbar from './Components/Navbar/Navbar'
 import Signup from './Components/Signup'
 import DataProvider from './context/DataProvider'
+import About from './Components/About'
+import Getstarted from './Components/About'
 
  const App = () => {
   return (
     <>
     <BrowserRouter>
-    <DataProvider>
     <Navbar/>
+    <DataProvider>
       <Routes>
          <Route path="/" element={<Home/>}/> 
          <Route path="/lend" element={<Lend/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup />} />
+        <Route path="/about" element={< About />} />
+        <Route path="/getstarted" element={< Getstarted/>} />
+ 
       </Routes>
       </DataProvider>
+      
     </BrowserRouter>
       </>
   )

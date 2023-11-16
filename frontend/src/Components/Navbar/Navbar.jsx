@@ -1,10 +1,10 @@
 import './Navbar.css'
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import {DataContext} from '../../context/DataProvider'
+// import {DataContext} from '../../context/DataProvider'
 
 const Navbar = () => {
-  const { account, setAccount } = useContext(DataContext);
+  // const { account, setAccount } = useContext(DataContext);
 
   // Function to handle logout
   // const handleLogout = () => {

@@ -70,7 +70,7 @@ const Lend = () => {
     // You can handle form submission here
      const response =   await API.createPost(post);
      if( response && response.isSuccess){
-      navigate('/rent')
+      navigate('/')
      }
    
   };

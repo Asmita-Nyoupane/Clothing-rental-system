@@ -27,7 +27,6 @@ const postSchema = mongoose.Schema({
   },
   phone: {
     type: String,
-    unique: true,
     required: true,
   },
   location: {
