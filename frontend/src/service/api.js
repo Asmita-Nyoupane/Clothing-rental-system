@@ -1,6 +1,6 @@
 import axios from 'axios'; 
 import { API_NOTIFICATION_MESSAGES,SERVICE_URL } from '../constants/config';
-import { getAccessToken } from '../utils/common_utils';
+import { getAccessToken, getType } from '../utils/common_utils';
 const API_URL =  "http://localhost:5001"
  const axiosInstance = axios.create({
     baseURL:API_URL,
@@ -10,8 +10,16 @@ const API_URL =  "http://localhost:5001"
     }
  })
  axiosInstance.interceptors.request.use(
-    function (config)
-    {
+    function (config){
+      if(config.TYPE.params){
+        config.params = config.TYPE.params;
+    }
+    else if(config.TYPE.query){
+      config.url= config.url + '/' + config.TYPE.query;
+    }
+    
+   
+  
         return config;
     },
     function (error){
