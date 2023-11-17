@@ -92,6 +92,7 @@ for (const [key, value] of Object.entries(SERVICE_URL)) {
       headers:{
         authorization:getAccessToken()
       },
+       TYPE: getType(value,body),
       onUploadProgress: function (progressEvent) {
         if (showUploadProgress) {
           let percentageCompleted = Math.round(
