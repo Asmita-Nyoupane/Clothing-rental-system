@@ -53,7 +53,7 @@ const Lend = () => {
         <h1>Product Form</h1>
         <form onSubmit={handleSubmit}>
         <div>
-            <label htmlFor="category">Category:</label>
+            <label htmlFor="category">Categories:</label>
             <select
               id="category"
               name="category"
