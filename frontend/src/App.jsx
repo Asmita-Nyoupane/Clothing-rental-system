@@ -7,6 +7,10 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Navbar from './Components/Navbar/Navbar'
 import Signup from './Components/Signup'
 import DataProvider from './context/DataProvider'
+import About from './Components/About'
+import Getstarted from './Components/About'
+ 
+
 
  const App = () => {
   return (
@@ -21,6 +25,10 @@ import DataProvider from './context/DataProvider'
         <Route path="/lend" element={<Lend/>}/>
         { <Route path="/rent" element={<Rent/>}/> }
         <Route path="/signup" element={<Signup />} />
+        
+        <Route path="/about" element={< About />} />
+        <Route path="/" element={< Getstarted/>} />
+ 
       </Routes>
       </DataProvider>
     </BrowserRouter>
