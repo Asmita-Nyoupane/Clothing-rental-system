@@ -21,4 +21,5 @@ router.post('/create',authenticateToken,createPost);
 router.get('/posts',getAllPosts );
 
 
+
 module.exports= router;
