@@ -9,7 +9,7 @@ import Signup from './Components/Signup'
 import DataProvider from './context/DataProvider'
 import About from './Components/About'
 import Getstarted from './Components/About'
- import {Details} from './Components/Details/Details'
+ import Details from './Components/Details/Details'
 
 
  const App = () => {
