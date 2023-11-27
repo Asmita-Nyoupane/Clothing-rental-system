@@ -68,7 +68,8 @@ const Lend = () => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     // You can handle form submission here
-     const response =   await API.createPost(post);
+    //  const response =   await API.createPost(post);
+    const response= await API.getAllPosts(post)
      if( response && response.isSuccess){
       navigate('/')
      }

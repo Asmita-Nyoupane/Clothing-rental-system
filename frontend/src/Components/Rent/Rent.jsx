@@ -1,15 +1,18 @@
-import Categories  from './Categories'
-import React from 'react'
+import React from 'react';
+import './Rent.css'
 
-import {Clothes} from './Clothes/Clothes'
+import Categories from './Categories';
+import Posts from './Post/Posts';
 
 export const Rent = () => {
-  
-  return (
-    <>
-        <Categories/>
-        <Clothes/>
-    </>
-
-  )
+    
+    return (
+        <>
+            {/* <Categories /> */}
+            <Posts />
+                
+        </>
+    );
 }
+
+

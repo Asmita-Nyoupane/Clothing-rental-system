@@ -1,7 +1,6 @@
 import { categories } from "../../constants/data";
 import React from 'react';
 import { Link, useSearchParams } from "react-router-dom";
-
 const Categories = () => {
   const [SearchParams]= useSearchParams();
   const category = SearchParams.get('category');
@@ -13,7 +12,7 @@ const Categories = () => {
           <thead>
             <tr>
               <th style={{ backgroundColor: 'lightgray', padding: '10px' }}>
-              <Link to ='/'>
+              <Link to ={'/rent'}>
               All Categories
               </Link>
                
