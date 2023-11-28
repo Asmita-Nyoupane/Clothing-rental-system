@@ -13,6 +13,13 @@ const postSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+  type:{
+    type: String,
+    require: true,
+  },
+  description:{
+    type: String
+  },
   size: {
     type: String,
     require: true,
