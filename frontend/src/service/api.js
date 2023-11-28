@@ -12,19 +12,22 @@ const API_URL =  "http://localhost:5001";
     }
  })
  axiosInstance.interceptors.request.use(
-  function(config) {
-      if (config.TYPE.params) {
-          config.params = config.TYPE.params
-      } else if (config.TYPE.query) {
-          config.url = config.url + '/' + config.TYPE.query;
-      }
-      return config;
-  },
-  function(error) {
-      return Promise.reject(error);
-  }
-);
-
+    function (config){
+      if(config.TYPE.params){
+        config.params = config.TYPE.params;
+    }
+    else if(config.TYPE.query){
+      config.url= config.url + '/' + config.TYPE.query;
+    }
+    
+   
+  
+        return config;
+    },
+    function (error){
+        return Promise.reject(error);
+    }
+ )
  axiosInstance.interceptors.response.use(
     function (response)
     {

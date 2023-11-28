@@ -34,5 +34,6 @@ export const API_NOTIFICATION_MESSAGES={
     
     uploadFile:{url:'/file/upload',method:'POST'},
     createPost:{url:'create',method:'POST'},
-    getAllClothes:{url:'/clothes', method:'GET', params:true}
- }
+    getAllPosts:{url:'/posts', method:'GET', params:true},
+    getPostById: { url: 'post', method: 'GET', query: true },
+  }

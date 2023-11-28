@@ -9,7 +9,7 @@ import Signup from './Components/Signup'
 import DataProvider from './context/DataProvider'
 import About from './Components/About'
 import Getstarted from './Components/About'
- 
+ import Details from './Components/Details/Details'
 
 
  const App = () => {
@@ -23,10 +23,9 @@ import Getstarted from './Components/About'
          <Route path="/lend" element={<Lend/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup />} />
-        
-        <Route path="/lend" element={<Lend/>}/>
-        { <Route path="/rent" element={<Rent/>}/> }
-        <Route path="/signup" element={<Signup />} />
+         <Route path="/rent" element={<Rent/>}/> 
+         <Route path="/rent/details/:id" element={<Details/>}/> 
+       
         
         <Route path="/about" element={< About />} />
         <Route path="/getstarted" element={< Getstarted/>} />
