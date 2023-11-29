@@ -9,6 +9,8 @@ const InitialPost ={
   size: "",
   image: "",
   gender: "",
+  type: "",
+  descrption:"",
   rentPrice: "",
   name:"",
   phone:"",
@@ -146,7 +148,28 @@ const Lend = () => {
             required
           />
           <label htmlFor="other">Other</label>
-        </div>
+          </div><br></br>
+        
+        <label htmlFor="type">Type:</label>
+          <input
+            type="text"
+            id="type"
+            name="type"
+            value={post.type}
+            onChange={handleInputChange}
+            required
+            placeholder="shirt, lehenga, pant"
+          />
+          <label htmlFor="description">Description:</label>
+          <textarea
+            type="text"
+            id="description"
+            name="description"
+            value={post.description}
+            onChange={handleInputChange}
+          />
+          
+
 
         <label htmlFor="size">Size:</label>
         <input
@@ -156,6 +179,7 @@ const Lend = () => {
           value={post.size}
           onChange={handleInputChange}
           required
+          placeholder="small, medium, large, x-large"
         />
          <label htmlFor="location">Location:</label>
         <input
