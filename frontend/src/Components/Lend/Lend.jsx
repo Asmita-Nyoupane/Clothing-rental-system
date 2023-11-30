@@ -9,8 +9,8 @@ const InitialPost ={
   size: "",
   image: "",
   gender: "",
-  type: "",
-  descrption:"",
+  type:"",
+  description:"",
   rentPrice: "",
   name:"",
   phone:"",
@@ -158,7 +158,7 @@ const Lend = () => {
             value={post.type}
             onChange={handleInputChange}
             required
-            placeholder="example: shirt, lehenga, pant"
+            placeholder="example:Shirt, Pant, Lehenga"
           />
           <label htmlFor="description">Description:</label>
           <textarea
@@ -167,7 +167,7 @@ const Lend = () => {
             name="description"
             value={post.description}
             onChange={handleInputChange}
-            placeholder="materail,color and condition of clothes "
+            placeholder="material,color and condition of clothes "
           />
           
 
