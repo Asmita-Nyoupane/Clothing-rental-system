@@ -150,7 +150,7 @@ const Lend = () => {
           <label htmlFor="other">Other</label>
           </div><br></br>
         
-        <label htmlFor="type">Type:</label>
+          <label htmlFor="type">Type:</label>
           <input
             type="text"
             id="type"
@@ -167,6 +167,7 @@ const Lend = () => {
             name="description"
             value={post.description}
             onChange={handleInputChange}
+            placeholder="materail,color and condition of clothes "
           />
           
 
