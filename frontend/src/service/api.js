@@ -1,7 +1,9 @@
 import axios from 'axios'; 
 import { API_NOTIFICATION_MESSAGES,SERVICE_URL } from '../constants/config';
-import { getAccessToken, getType } from '../utils/common_utils';
-const API_URL =  "http://localhost:5001"
+import { getAccessToken, getRefreshToken, setAccessToken,getType } from  '../utils/common_utils'
+
+const API_URL =  "http://localhost:5001";
+
  const axiosInstance = axios.create({
     baseURL:API_URL,
     timeout:10000,
@@ -34,7 +36,7 @@ const API_URL =  "http://localhost:5001"
     },
     function (error){
           //  gloabal loader stop here
-        return Promise.reject(processError(error));
+        return Promise.reject(ProcessError(error));
     }
  )
 
@@ -60,36 +62,69 @@ else{
 
 // //  if success =>return {isSuccess:true, data :object}
 // if fail->return{ isFailure:true, status:string, msg:string, statusCode:int} 
-const processError=(error)=>{
-    if(error.response){
-        
-        // request  made  and server responded with a status other that falls out of range 2.x.x
-        console.log('Error in response:', error.toJSON());
-        return{
-            isError:true,
-            msg: API_NOTIFICATION_MESSAGES.responseFailure,
-            code:error.response.status
-        }
-    }else if(error.request){
-        // request made but no response received
-        console.log('Error in request:', error.toJSON());
-        return{
-            isError:true,
-            msg:API_NOTIFICATION_MESSAGES.requestFailure,
-            code:""
-        }
-    }else{
-        // something happend in setting up  request that trigger an error
-        console.log('Error in network:', error.toJSON());
-        return{
-            isError:true,
-            msg:API_NOTIFICATION_MESSAGES.networkError,
-            code:""
-        }
-    }
+const ProcessError = async (error) => {
+  if (error.response) {
+      // Request made and server responded with a status code 
+      // that falls out of the range of 2xx
+      if (error.response?.status === 403) {
+          try {
+              let response = await API.refreshToken();
+              if (response.isSuccess) {
+                  // If refresh token is successful, update the access token and retry the original request
+                  setAccessToken(response.data.accessToken);
+
+                  // Retry the original request
+                  return axios(error.config);
+              }
+          } catch (error) {
+              return Promise.reject(error);
+          }
+      } else {
+          console.log("ERROR IN RESPONSE: ", error.toJSON());
+          return {
+              isError: true,
+              msg: API_NOTIFICATION_MESSAGES.responseFailure,
+              code: error.response.status
+          };
+      }
+  } else if (error.request) {
+      // The request was made but no response was received
+      console.log("ERROR IN RESPONSE: ", error.toJSON());
+      return {
+          isError: true,
+          msg: API_NOTIFICATION_MESSAGES.requestFailure,
+          code: ""
+      };
+  } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log("ERROR IN RESPONSE: ", error.toJSON());
+      return {
+          isError: true,
+          msg: API_NOTIFICATION_MESSAGES.networkError,
+          code: ""
+      };
+  }
 }
 
 const API = {};
+
+// Add a new method to refresh the token
+API.refreshToken = async () => {
+  const refreshToken = getRefreshToken();
+
+  try {
+      const response = await axiosInstance({
+          method: 'POST',
+          url: '/path/to/refresh-token-endpoint',
+          data: { token: refreshToken }
+      });
+
+      return processResponse(response);
+  } catch (error) {
+      return ProcessError(error);
+  }
+};
+
 for (const [key, value] of Object.entries(SERVICE_URL)) {
   API[key] = (body, showUploadProgress, showDownloadProgress) => 
       axiosInstance({
