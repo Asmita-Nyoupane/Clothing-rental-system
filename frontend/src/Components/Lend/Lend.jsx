@@ -158,7 +158,7 @@ const Lend = () => {
             value={post.type}
             onChange={handleInputChange}
             required
-            placeholder="shirt, lehenga, pant"
+            placeholder="example: shirt, lehenga, pant"
           />
           <label htmlFor="description">Description:</label>
           <textarea
@@ -179,7 +179,7 @@ const Lend = () => {
           value={post.size}
           onChange={handleInputChange}
           required
-          placeholder="small, medium, large, x-large"
+          placeholder=" example: small, medium, large, x-large"
         />
          <label htmlFor="location">Location:</label>
         <input
