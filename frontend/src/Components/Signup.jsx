@@ -6,12 +6,15 @@ const signupInitialValues = {
   email: "",
   phone: "",
   password: "",
+  image: "",
 };
 
 const Signup = () => {
   let navigate = useNavigate();
   const [signup, setSignup] = useState(signupInitialValues);
   const [error, setError] = useState();
+  const [uploadImageError, setuploadImageError] = useState("");
+  const [file, setFile] = useState("");
   const onInputChange = (e) => {
     setSignup({ ...signup, [e.target.name]: e.target.value });
   };
@@ -40,22 +43,22 @@ const Signup = () => {
     const nameRegex = /^[a-zA-Z\s]*$/;
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     const phoneRegex = /^\d{10}$/;
-  
+
     if (!signup.name || !signup.email || !signup.phone || !signup.password) {
       setError("Please fill in all the required fields.");
       return false;
     }
-  
+
     if (!nameRegex.test(signup.name)) {
       setError("Name should contain only alphabetic characters and spaces.");
       return false;
     }
-  
+
     if (!emailRegex.test(signup.email)) {
       setError("Please enter a valid email address.");
       return false;
     }
-  
+
     if (!phoneRegex.test(signup.phone)) {
       setError("Phone number should contain exactly 10 digits.");
       return false;
@@ -64,10 +67,31 @@ const Signup = () => {
       setError("Password should be at least 6 characters long.");
       return false;
     }
-  
+
     return true;
   };
-  ;
+
+  useEffect(() => {
+    const getImage = async () => {
+      if (file) {
+        // Check if the selected file is a valid image (jpg or png)
+        if (file.type === "image/jpeg" || file.type === "image/png") {
+          const data = new FormData();
+          data.append("name", file.name);
+          data.append("file", file);
+
+          // API Call
+          const response = await API.uploadFile(data);
+          signup.image = response.data;
+
+          setuploadImageError("");
+        } else {
+          setuploadImageError("please upload png or jpg image");
+        }
+      }
+    };
+    getImage();
+  }, [file]);
 
   return (
     <>
@@ -144,6 +168,20 @@ const Signup = () => {
                     autoComplete="current-password"
                     onChange={(e) => onInputChange(e)}
                   />
+                </div>
+
+                <div>
+                  <label htmlFor="image">Upload Image:</label>
+                  <input
+                    type="file"
+                    id="image"
+                    name="file"
+                    accept="image/*"
+                    onChange={(e) => setFile(e.target.files[0])}
+                  />
+                  {uploadImageError && (
+                    <div className="error-message">{uploadImageError}</div>
+                  )}
                 </div>
                 {error && (
                   <span

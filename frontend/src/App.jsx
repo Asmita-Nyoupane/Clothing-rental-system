@@ -39,5 +39,4 @@ import Update from './Components/Update/Update'
       </>
   )
 }
-
-export default App 
+export default App;
