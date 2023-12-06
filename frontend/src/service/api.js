@@ -71,7 +71,7 @@ const ProcessError = async (error) => {
               let response = await API.refreshToken();
               if (response.isSuccess) {
                   // If refresh token is successful, update the access token and retry the original request
-                  setAccessToken(response.data.accessToken);
+                  setAccessToken(response.data.accesstoken);
 
                   // Retry the original request
                   return axios(error.config);
@@ -130,7 +130,7 @@ for (const [key, value] of Object.entries(SERVICE_URL)) {
       axiosInstance({
       method: value.method,
       url: value.url,
-      data: body,
+      data: value.method === 'DELETE' ? {} : body,
       responseType: value.responseType,
       headers:{
         authorization:getAccessToken()

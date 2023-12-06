@@ -10,7 +10,7 @@ import DataProvider from './context/DataProvider'
 import About from './Components/About'
 import Getstarted from './Components/About'
  import Details from './Components/Details/Details'
-
+import Update from './Components/Update/Update'
 
  const App = () => {
   return (
@@ -24,7 +24,9 @@ import Getstarted from './Components/About'
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup />} />
          <Route path="/rent" element={<Rent/>}/> 
-         <Route path="/rent/details/:id" element={<Details/>}/> 
+         <Route path="/rent/details/:id" element={<Details/>}/>
+         
+          <Route path="/update/:id" element={<Update/>}/> 
        
         
         <Route path="/about" element={< About />} />

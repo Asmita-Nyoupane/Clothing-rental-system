@@ -24,6 +24,36 @@
     /* margin-bottom: 10px; */
     /* color: #3498db; */
   }
+  /* button {
+    padding: 10px 15px; 
+    margin: 5px; 
+    font-size: 14px; 
+    cursor: pointer;
+    border: none;
+    border-radius: 5px; */
+   
+  
+  .edit{
+    margin: 5px;
+    padding: 6px 15px;
+    border: 1px solid #878787;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 255, 0.589); 
+    color: #fff;
+  }
+  .delete{
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #878787;
+    border-radius: 10px;
+    background-color: #ff6961; 
+    color: #fff; 
+  }
+  
+  button:hover {
+    background-color: yellowgreen
+  }
+  
   
   
   

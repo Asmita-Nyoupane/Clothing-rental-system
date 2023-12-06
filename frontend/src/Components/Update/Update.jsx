@@ -1,9 +1,8 @@
-import React, { useState, useEffect ,useContext} from "react";
-import {DataContext} from '../../context/DataProvider'
-import { useNavigate } from "react-router-dom"
-import "./Lend.css";
-import {API} from '../../service/api'
-
+import React from 'react'
+import { useEffect, useContext,useState} from 'react';
+ import { DataContext } from '../../context/DataProvider';
+import {  useNavigate,useParams} from 'react-router-dom';
+import {API} from '../../service/api';
 const InitialPost ={
   category: "",
   size: "",
@@ -18,81 +17,79 @@ const InitialPost ={
   createDate: new Date()
 
 }
-const Lend = () => {
-  const [post, setPost] = useState(InitialPost);
-  const [rentPriceError, setRentPriceError] = useState("");
-  const [uploadImageError, setuploadImageError] = useState("");
-  const [file, setFile] = useState("");
-  const { account} = useContext(DataContext);
- const navigate = useNavigate();
- 
+
+const Update = () => {
+   const [post, setPost] = useState(InitialPost);
+   const [imageurl, setImageUrl] = useState("");
+   const [uploadImageError, setuploadImageError] = useState("");
+   const { account } = useContext(DataContext);
+   const [file, setFile] = useState("");
+   const navigate = useNavigate();
+   const {id} = useParams()
 
   useEffect(() => {
-    const getImage = async() => {
-     if(file){
-        // Check if the selected file is a valid image (jpg or png)
-        if  (file.type === "image/jpeg" || file.type === "image/png") {
+     const fetchData = async () => {
+     const response = await API.getPostById(id);
+     setPost(response.data);
+     setImageUrl(response.data.image);
+    };
+   fetchData();
+   }, [id]);
+  
+   
+   useEffect(() => {
+    const getImage = async () => { 
+      try {
+        if(file) {
           const data = new FormData();
           data.append("name", file.name);
           data.append("file", file);
-        
-  
-          // API Call
-         const response =  await API.uploadFile(data);
-         post.image = response.data;
-       
-       setuploadImageError("")  
-        } else {
-          setuploadImageError("please upload png or jpg image");
-        }
-    }
-    };
-    getImage();
-   post.name = account.name;
-   post.phone = account.phone;
-  }, [file]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-    if (name === "rentPrice" && !/^\d+$/.test(value)) {
-      setRentPriceError("Rental price must contain only digits.");
-    } else {
-      setRentPriceError(""); // Clear the error message if the input is valid
-    }
-    setPost({
-      ...post,
-      [name]: value,
-    });
-  };
-  
-//   const updateBlogPost = async () => {
-//     await API.updatePost(post);
-//     navigate(`/details/${id}`);
-// }
-
-  const handleSubmit = async(e) => {
-    e.preventDefault();
-    // You can handle form submission here
-    //  const response =   await API.createPost(post);
-    const response= await API.createAllPosts(post)
-     if( response && response.isSuccess){
-      navigate('/')
-     }
    
-  };
+          const response = await API.uploadFile(data);
+          if (response.isSuccess) {
+            post.image= response.data;
+            setImageUrl(response.data);  
+          }
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+    getImage();
+    post.name = account.name;
+    post.phone = account.phone;
+   }, [file]);
 
-  return (
-    <div>
-      <h1>Product Form</h1>
-      <form onSubmit={handleSubmit} encType='multipart/form-data'>
+  
+
+const updateBlogPost = async (e) => {
+  e.preventDefault();
+   await API.updatePost(post);
+   navigate(`/rent/details/${post._id}`);
+ };
+
+
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setPost({
+    ...post,
+    [name]: value,
+  });
+};
+
+ 
+ return (
+    <>
+ <h1>Update Product</h1>
+      <form >
         <div>
           <label htmlFor="category">Category:</label>
           <select
             id="category"
             name="category"
+           
+            onChange={(e) => handleChange(e)}
             value={post.category}
-            onChange={handleInputChange}
             required
           >
             <option value="">-- Select Category --</option>
@@ -110,12 +107,12 @@ const Lend = () => {
             id="rentPrice"
             name="rentPrice"
             value={post.rentPrice}
-            onChange={handleInputChange}
+            onChange={handleChange}
             required
           />
-          {rentPriceError && (
+          {/* {rentPriceError && (
             <div className="error-message">{rentPriceError}</div>
-          )}
+          )} */}
         </div>
 
         <label>Gender:</label>
@@ -126,7 +123,7 @@ const Lend = () => {
             name="gender"
             value="male"
             checked={post.gender === "male"}
-            onChange={handleInputChange}
+            onChange={handleChange}
             required
           />
           <label htmlFor="male">Male</label>
@@ -137,7 +134,7 @@ const Lend = () => {
             name="gender"
             value="female"
             checked={post.gender === "female"}
-            onChange={handleInputChange}
+            onChange={handleChange}
             required
           />
           <label htmlFor="female">Female</label>
@@ -148,7 +145,7 @@ const Lend = () => {
             name="gender"
             value="other"
             checked={post.gender === "other"}
-            onChange={handleInputChange}
+            onChange={handleChange}
             required
           />
           <label htmlFor="other">Other</label>
@@ -160,7 +157,7 @@ const Lend = () => {
             id="type"
             name="type"
             value={post.type}
-            onChange={handleInputChange}
+            onChange={handleChange}
             required
             placeholder="example:Shirt, Pant, Lehenga"
           />
@@ -170,7 +167,7 @@ const Lend = () => {
             id="description"
             name="description"
             value={post.description}
-            onChange={handleInputChange}
+            onChange={handleChange}
             placeholder="material,color and condition of clothes "
           />
           
@@ -182,7 +179,7 @@ const Lend = () => {
           id="size"
           name="size"
           value={post.size}
-          onChange={handleInputChange}
+          onChange={handleChange}
           required
           placeholder=" example: small, medium, large, x-large"
         />
@@ -192,30 +189,36 @@ const Lend = () => {
           id="location"
           name="location"
           value={post.location}
-          onChange={handleInputChange}
+          onChange={handleChange}
           required
         />
 
         <div>
+        {/* <img src={post.image|| imageUrl} alt="Post image" /> */}
           <label htmlFor="image">Upload Image:</label>
           <input
-            type="file"
-            id="image"
-            name="file"
-            accept="image/*"
-            onChange={(e) => setFile(e.target.files[0])}
-            required
-          />
-          {uploadImageError && (
+ type="file"
+ id="image"
+ name="file"
+ accept="image/*"
+ onChange={(e) => {
+   setFile(e.target.files[0]);
+   setImageUrl(URL.createObjectURL(e.target.files[0]));
+   <img src={imageurl || post.image} alt="Post image" />
+
+ }}
+ required
+/>
+
+        
+{uploadImageError && (
             <div className="error-message">{uploadImageError}</div>
           )}
         </div>
 
-        <button type="submit">Submit</button>
+        <button onClick={updateBlogPost} type="submit">Update</button>
       </form>
-    </div>
-  );
+    </>
+  )
 };
-
-export default Lend;
-  
+export default Update;

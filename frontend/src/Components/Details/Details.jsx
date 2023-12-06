@@ -1,24 +1,32 @@
 // Details.jsx
 
 import React, { useEffect, useState, useContext } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams,Link, useNavigate } from 'react-router-dom';
 import { API } from "../../service/api";
-import { DataContext } from "../../context/DataProvider";
+import {DataContext }from "../../context/DataProvider";
 import './Details.css'; 
 
 const Details = () => {
   const [post, setPost] = useState({});
   const { id } = useParams();
   const {account}= useContext(DataContext);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       let response = await API.getPostById(id);
       if (response.isSuccess) {
         setPost(response.data);
+      
       }
     };
     fetchData();
   }, [id]);
+  const deleteBlog=async()=>{
+    let response = await API.deletePost(post._id);
+    if(response.isSuccess){
+      navigate('/rent')
+    }
+  }
 
   return (
     <div className="container"> {/* Add a container div */}
@@ -31,15 +39,19 @@ const Details = () => {
       <h2 className="Phone">Phone: {post.phone}</h2>
       <h2 className="Location">Location: {post.location}</h2>
       <h2 className="Date">Date: {new Date(post.createdDate).toDateString()}</h2><br/>
-      {
-        account.name === post.name &&
+        {
+        account.name === post.name && 
         <>
-        <button>Delete</button>
-        </>
-      }
+        <Link to={`/Update/${post._id}`} >
+        <button className="edit">Edit</button>
+        </Link>
+        <button onClick={()=>deleteBlog()} className="delete">Delete</button>
+        
+         </> 
+         }
       
     </div>
   );
-};
+    };
 
 export default Details;
