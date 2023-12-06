@@ -1,52 +1,53 @@
-import React, { useState, useEffect ,useContext} from "react";
-import {DataContext} from '../../context/DataProvider'
-import { useNavigate } from "react-router-dom"
+import React, { useState, useEffect, useContext } from "react";
+import { DataContext } from "../../context/DataProvider";
+import { useNavigate } from "react-router-dom";
 import "./Lend.css";
-import {API} from '../../service/api'
+import { API } from "../../service/api";
 
-const InitialPost ={
+const InitialPost = {
   category: "",
   size: "",
   image: "",
   gender: "",
   rentPrice: "",
-  name:"",
-  phone:"",
-  location:"",
-  createDate: new Date()
-
-}
+  name: "",
+  phone: "",
+  location: "",
+  type: "",
+  description: "",
+  createDate: new Date(),
+};
 const Lend = () => {
   const [post, setPost] = useState(InitialPost);
   const [rentPriceError, setRentPriceError] = useState("");
   const [uploadImageError, setuploadImageError] = useState("");
   const [file, setFile] = useState("");
-  const { account} = useContext(DataContext);
- const navigate = useNavigate();
+  const { account } = useContext(DataContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const getImage = async() => {
-     if(file){
+    const getImage = async () => {
+      if (file) {
         // Check if the selected file is a valid image (jpg or png)
-        if  (file.type === "image/jpeg" || file.type === "image/png") {
+        if (file.type === "image/jpeg" || file.type === "image/png") {
           const data = new FormData();
           data.append("name", file.name);
           data.append("file", file);
-        
-  
+
           // API Call
-         const response =  await API.uploadFile(data);
-         post.image = response.data;
-       
-       setuploadImageError("")  
+          const response = await API.uploadFile(data);
+          console.log("hello", response);
+          post.image = response.data;
+
+          setuploadImageError("");
         } else {
           setuploadImageError("please upload png or jpg image");
         }
-    }
+      }
     };
     getImage();
-   post.name = account.name;
-   post.phone = account.phone;
+    // post.name = account.name;
+    // post.phone = account.phone;
   }, [file]);
 
   const handleInputChange = (e) => {
@@ -57,29 +58,36 @@ const Lend = () => {
     } else {
       setRentPriceError(""); // Clear the error message if the input is valid
     }
-    setPost({
-      ...post,
-      [name]: value,
-    });
-  };
-  
-  
 
-  const handleSubmit = async(e) => {
+    // setPost({
+    //   name: account.name,
+    //   phone: account.phone,
+    //   ...post,
+    //   [name]: value,
+    // });
+    setPost((prevPost) => ({
+      ...prevPost,
+      [name]: value,
+      name: account.name,
+      phone: account.phone,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // You can handle form submission here
     //  const response =   await API.createPost(post);
-    const response= await API.getAllPosts(post)
-     if( response && response.isSuccess){
-      navigate('/')
-     }
-   
+    const response = await API.createPost(post);
+    if (response && response.isSuccess) {
+      console.log("frontend", response);
+      navigate("/rent");
+    }
   };
 
   return (
     <div>
       <h1>Product Form</h1>
-      <form onSubmit={handleSubmit} encType='multipart/form-data'>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
           <label htmlFor="category">Category:</label>
           <select
@@ -148,6 +156,25 @@ const Lend = () => {
           <label htmlFor="other">Other</label>
         </div>
 
+        <label htmlFor="type">Type:</label>
+        <input
+          type="text"
+          id="type"
+          name="type"
+          value={post.type}
+          onChange={handleInputChange}
+          required
+          placeholder="example: shirt, lehenga, pant"
+        />
+        <label htmlFor="description">Description:</label>
+        <textarea
+          type="text"
+          id="description"
+          name="description"
+          value={post.description}
+          onChange={handleInputChange}
+        />
+
         <label htmlFor="size">Size:</label>
         <input
           type="text"
@@ -157,7 +184,7 @@ const Lend = () => {
           onChange={handleInputChange}
           required
         />
-         <label htmlFor="location">Location:</label>
+        <label htmlFor="location">Location:</label>
         <input
           type="text"
           id="location"
@@ -189,4 +216,3 @@ const Lend = () => {
 };
 
 export default Lend;
-  

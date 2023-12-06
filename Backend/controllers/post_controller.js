@@ -3,12 +3,13 @@ const Post = require("../models/Post");
 // create a new post
 
 const createPost = async (req, res) => {
+  console.log("hello", req);
   try {
-    const post = await new Post(req.body);
-    post.save();
-    return res.status(200).json({ msg: "Post saved successfully" });
+    // console.log("backend", req.body);
+    const post = await Post.create(req.body);
+    return res.status(200).json({ msg: "Post saved successfully", data: post });
   } catch (error) {
-    return res.status(500).json({ msg: error });
+    return res.status(500).json({ msg: error.message });
   }
 };
 
@@ -19,7 +20,7 @@ const getAllPosts = async (req, res) => {
   let posts;
   try {
     if (category) {
-      posts = await Post.find({ categories: category });
+      posts = await Post.find({ category: category });
     } else {
       posts = await Post.find({});
     }

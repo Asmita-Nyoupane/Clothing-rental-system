@@ -22,20 +22,24 @@ const {
   createNewToken,
 } = require("../middleware/authenticateToken");
 
+// routes to upload and get the images
 router.post("/file/upload", upload.single("file"), uploadImage);
 router.get("/file/:filename", getImage);
 
+// routes for login and signup
 router.post("/signup", signupUser);
 router.post("/login", loginUser);
 
 router.post("/token", createNewToken);
 
+// routes for post
 router.post("/create", authenticateToken, createPost);
 router.get("/posts", getAllPosts);
 router.get("/post/:id", getPost);
 router.put("/update/:id", authenticateToken, updatePost);
 router.delete("/delete/:id", authenticateToken, deletePost);
 
+// routes for comments
 router.post("/comment/new", authenticateToken, newComment);
 router.get("/comments/:id", authenticateToken, getComments);
 router.delete("/comment/delete/:id", authenticateToken, deleteComment);

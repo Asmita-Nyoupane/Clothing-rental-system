@@ -1,37 +1,32 @@
-import React from 'react'
-import {useState, useEffect} from 'react'
-import { useSearchParams, Link} from 'react-router-dom';
+import React from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams, Link } from "react-router-dom";
 //import {API} from '../../../service/api';
-import {API} from '../../../service/api';
-import { Post } from './Post';
-
-
-
+import { API } from "../../../service/api";
+import { Post } from "./Post";
 
 const Posts = () => {
-   
-    const [posts, getPosts] = useState([]);
-    
-    const [searchParams] = useSearchParams();
-    const category = searchParams.get('category');
-    
+  const [posts, setPosts] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => { 
-            let response = await API.getAllPosts({ category : category || '' });
-            if (response.isSuccess) {
-                getPosts(response.data);
-            }
-        }
-        fetchData();
-    }, [category]);
+  const [searchParams] = useSearchParams();
+  const category = searchParams.get("category");
 
-//    
-return (
+  useEffect(() => {
+    const fetchData = async () => {
+      let response = await API.getAllPosts({ category: category || "" });
+      if (response.isSuccess) {
+        setPosts(response.data);
+      }
+    };
+    fetchData();
+  }, [category]);
+
+  //
+  return (
     <>
-      <div className='card-container'>
+      <div className="card-container">
         {posts?.length ? (
-          posts.map(post => (
+          posts.map((post) => (
             <div key={post._id} className="card">
               <Link to={`details/${post._id}`}>
                 <Post post={post} />
@@ -39,7 +34,13 @@ return (
             </div>
           ))
         ) : (
-          <div style={{ backgroundColor: 'lightgray', margin: '30px 80px', fontSize: '15px' }}>
+          <div
+            style={{
+              backgroundColor: "lightgrey",
+              margin: "30px 80px",
+              fontSize: "15px",
+            }}
+          >
             No data available to display
           </div>
         )}
@@ -48,6 +49,4 @@ return (
   );
 };
 
-
-      
- export default Posts;
+export default Posts;
