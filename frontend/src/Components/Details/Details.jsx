@@ -1,14 +1,15 @@
 // Details.jsx
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from 'react-router-dom';
 import { API } from "../../service/api";
+import { DataContext } from "../../context/DataProvider";
 import './Details.css'; 
 
 const Details = () => {
   const [post, setPost] = useState({});
   const { id } = useParams();
-
+  const {account}= useContext(DataContext);
   useEffect(() => {
     const fetchData = async () => {
       let response = await API.getPostById(id);
@@ -29,7 +30,14 @@ const Details = () => {
       <h2 className="name">Name: {post.name}</h2>
       <h2 className="Phone">Phone: {post.phone}</h2>
       <h2 className="Location">Location: {post.location}</h2>
-      <h2 className="Date">Date: {new Date(post.createdDate).toDateString()}</h2>
+      <h2 className="Date">Date: {new Date(post.createdDate).toDateString()}</h2><br/>
+      {
+        account.name === post.name &&
+        <>
+        <button>Delete</button>
+        </>
+      }
+      
     </div>
   );
 };
