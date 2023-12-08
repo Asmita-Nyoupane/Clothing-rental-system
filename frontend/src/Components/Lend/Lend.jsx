@@ -9,8 +9,6 @@ const InitialPost = {
   size: "",
   image: "",
   gender: "",
-  type: "",
-  descrption:"",
   rentPrice: "",
   name: "",
   phone: "",
@@ -24,8 +22,9 @@ const Lend = () => {
   const [rentPriceError, setRentPriceError] = useState("");
   const [uploadImageError, setuploadImageError] = useState("");
   const [file, setFile] = useState("");
-  const { account } = useContext(DataContext);
-  const navigate = useNavigate();
+  const { account} = useContext(DataContext);
+ const navigate = useNavigate();
+ 
 
   useEffect(() => {
     const getImage = async () => {
@@ -158,7 +157,7 @@ const Lend = () => {
           <label htmlFor="other">Other</label>
           </div><br></br>
         
-        <label htmlFor="type">Type:</label>
+          <label htmlFor="type">Type:</label>
           <input
             type="text"
             id="type"
@@ -166,7 +165,7 @@ const Lend = () => {
             value={post.type}
             onChange={handleInputChange}
             required
-            placeholder="example: shirt, lehenga, pant"
+            placeholder="example:Shirt, Pant, Lehenga"
           />
           <label htmlFor="description">Description:</label>
           <textarea
@@ -175,6 +174,7 @@ const Lend = () => {
             name="description"
             value={post.description}
             onChange={handleInputChange}
+            placeholder="material,color and condition of clothes "
           />
           
 
