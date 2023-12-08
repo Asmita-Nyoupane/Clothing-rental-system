@@ -1,20 +1,4 @@
 export const getAccessToken = () => {
-<<<<<<< HEAD
-    return sessionStorage.getItem('accesstoken');
-}
-
-export const getRefreshToken = () => {
-    return sessionStorage.getItem('refreshtoken');
-}
-
-export const setAccessToken = (accesstoken) => {
-    sessionStorage.setItem('accesstoken', `Bearer ${accesstoken}`);
-}
-
-export const setRefreshToken = (refreshtoken) => {
-    sessionStorage.setItem('refreshtoken', `Bearer ${refreshtoken}`);
-}
-=======
   // console.log(" TOKEN ✌️✌️", sessionStorage.getItem("accesstoken"));
   return sessionStorage.getItem("accesstoken");
 };
@@ -48,7 +32,6 @@ export const setRefreshToken = (refreshToken) => {
   console.log("after updating  refreshtoken✌️✌️", updatedToken);
   return updatedToken;
 };
->>>>>>> 979821346a0e996480b521b904c6db8929c35a18
 export const getType = (value, body) => {
   if (value.params) {
     return { params: body };

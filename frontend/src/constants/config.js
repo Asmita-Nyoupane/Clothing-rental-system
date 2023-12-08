@@ -27,7 +27,6 @@ export const API_NOTIFICATION_MESSAGES = {
 // API SERVICE CALL
 // SAMPLE REQUEST
 // NEED SERVICE CALL:{url:'/', method:'post/get/put/delete', params:true/false, query:true/fasle}
-<<<<<<< HEAD
  export const  SERVICE_URL ={
     userSignup:{url:'/signup', method:'POST'},
     userLogin:{url:'/login', method:'POST'},
@@ -40,15 +39,3 @@ export const API_NOTIFICATION_MESSAGES = {
     updatePost:{url:'update', method:'PUT', query:true},
     deletePost: { url: 'delete', method: 'DELETE', query: true },
   }
-=======
-export const SERVICE_URL = {
-  uploadFile: { url: "/file/upload", method: "POST" },
-  userSignup: { url: "/signup", method: "POST" },
-  userLogin: { url: "/login", method: "POST" },
-  getRefreshToken: { url: "/token", method: "POST" },
-
-  createPost: { url: "create", method: "POST" },
-  getAllPosts: { url: "/posts", method: "GET", params: true },
-  getPostById: { url: "post", method: "GET", query: true },
-};
->>>>>>> 979821346a0e996480b521b904c6db8929c35a18

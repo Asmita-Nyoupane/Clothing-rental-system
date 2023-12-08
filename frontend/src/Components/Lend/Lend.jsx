@@ -9,8 +9,6 @@ const InitialPost = {
   size: "",
   image: "",
   gender: "",
-  type:"",
-  description:"",
   rentPrice: "",
   name: "",
   phone: "",
