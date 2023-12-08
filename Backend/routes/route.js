@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const { signupUser, loginUser } = require("../controllers/user");
+const {
+  signupUser,
+  loginUser,
+  allUsers,
+} = require("../controllers/user_controller");
 const { uploadImage, getImage } = require("../controllers/image_controller");
 const {
   createPost,
@@ -22,6 +26,12 @@ const {
   createNewToken,
 } = require("../middleware/authenticateToken");
 
+const { accessChat, fetchChats } = require("../controllers/chat_controller");
+const {
+  sendMessage,
+  allMessage,
+} = require("../controllers/message_controllers");
+
 // routes to upload and get the images
 router.post("/file/upload", upload.single("file"), uploadImage);
 router.get("/file/:filename", getImage);
@@ -31,6 +41,9 @@ router.post("/signup", signupUser);
 router.post("/login", loginUser);
 
 router.post("/token", createNewToken);
+
+//routes for searching the user
+router.get("/searchUser", authenticateToken, allUsers);
 
 // routes for post
 router.post("/create", authenticateToken, createPost);
@@ -43,5 +56,13 @@ router.delete("/delete/:id", authenticateToken, deletePost);
 router.post("/comment/new", authenticateToken, newComment);
 router.get("/comments/:id", authenticateToken, getComments);
 router.delete("/comment/delete/:id", authenticateToken, deleteComment);
+
+//routes for chat
+router.post("/chat", authenticateToken, accessChat);
+router.get("/chats", authenticateToken, fetchChats);
+
+// routes for message
+router.post("/message", authenticateToken, sendMessage);
+router.get("/message/:chatId", authenticateToken, allMessage);
 
 module.exports = router;
