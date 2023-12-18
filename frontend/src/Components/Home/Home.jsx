@@ -6,7 +6,7 @@ import "./Home.css";
 
 const Home = () => {
   return (
-    <>
+   <>
 
       <div className="container">
         <h1>Welcome to Clothing Rental System</h1>
@@ -28,7 +28,7 @@ const Home = () => {
         </div>
         <button className="rent-button">Rent Now</button>
       </div>
-    </>
+      </>
   );
 };
 

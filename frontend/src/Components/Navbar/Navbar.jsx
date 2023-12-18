@@ -1,6 +1,7 @@
 import './Navbar.css'
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import Search from '../Search/Search';
 // import {DataContext} from '../../context/DataProvider'
 
 const Navbar = () => {
@@ -15,12 +16,17 @@ const Navbar = () => {
   // };
 
   return (
+<> 
+
     <div className="navbar">
       <Link to="/">Home</Link>
       <Link to="/about">About</Link>
       <Link to="/lend">Lend</Link>
       <Link to="/rent">Rent</Link>
       <Link to="/login">Login</Link>
+      <div className='search'>
+<Search/>
+</div>
 {/* 
       {account ? (
         // Display "Logout" if the user is logged in
@@ -29,7 +35,11 @@ const Navbar = () => {
         // Display "Login" if the user is not logged in
         <Link to="/login">Login</Link>
       )} */}
+    
     </div>
+
+    
+    </>
   );
 };
 

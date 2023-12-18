@@ -5,6 +5,7 @@ import { useParams,Link, useNavigate } from 'react-router-dom';
 import { API } from "../../service/api";
 import {DataContext }from "../../context/DataProvider";
 import './Details.css'; 
+import Comments from "./Comments/Comments";
 
 const Details = () => {
   const [post, setPost] = useState({});
@@ -50,9 +51,10 @@ const Details = () => {
         </Link>
         <button onClick={()=>deleteBlog()} className="delete">Delete</button>
         
+        
          </> 
          }
-      
+       <Comments  post = {post} />
     </div>
   );
     };
