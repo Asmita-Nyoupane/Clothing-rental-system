@@ -39,6 +39,12 @@ export const SERVICE_URL = {
   updatePost: { url: "update", method: "PUT", query: true },
   deletePost: { url: "delete", method: "DELETE", query: true },
 
+  getNearbyPosts: { url: "/near/posts", method: "GET", params: true },
+
+  newComment: { url: "/comment/new", method: "POST" },
+  getAllComments: { url: "comments", method: "GET", query: true },
+  deleteComment: { url: "comment/delete", method: "DELETE", query: true },
+
   accessChat: { url: "/chat", method: "POST" },
   fetchChat: { url: "/chats", method: "GET" },
   sendMessage: { url: "/message", method: "POST" },

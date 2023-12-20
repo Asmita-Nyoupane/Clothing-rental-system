@@ -1,12 +1,6 @@
 import axios from "axios";
 import { API_NOTIFICATION_MESSAGES, SERVICE_URL } from "../constants/config";
-import {
-  getAccessToken,
-  getRefreshToken,
-  setAccessToken,
-  setRefreshToken,
-  getType,
-} from "../utils/common_utils";
+import { getAccessToken, getType } from "../utils/common_utils";
 
 const API_URL = "http://localhost:5001";
 
@@ -66,56 +60,47 @@ const ProcessError = async (error) => {
   if (error.response) {
     // Request made and server responded with a status code
     // that falls out of the range of 2xx
+
     // if (error.response?.status === 403) {
-    //   try {
-    //     let response = await API.refreshToken();
-
-    //     if (response.isSuccess) {
-    //       // If refresh token is successful, update the access token and retry the original request
-
-    //       setAccessToken(response.data.accesstoken);
-    //       console.log("😎😎", response.data.accesstoken);
-
-    //       // Retry the original request
-    //       return axios(error.config);
-    //     }
-    //   } catch (error) {
-    //     return Promise.reject(error);
+    // try {
+    //   let response = await API.getRefreshToken({ token: getRefreshToken() });
+    //   if (response.isSuccess) {
+    //     // sessionStorage.clear();
+    //     sessionStorage.removeItem("accesstoken");
+    //     console.log("reponse token", response);
+    //     const newToken = setAccessToken(response.data.accessToken);
+    //     console.log("tokens🤑🤑", newToken, "😣", response.data.refreshToken);
+    //     setRefreshToken(newToken);
+    //     const requestData = error.toJSON();
+    //     console.log("Token after expire", getAccessToken());
+    //     let response1 = await axios({
+    //       method: requestData.config.method,
+    //       url: requestData.config.baseURL + requestData.config.url,
+    //       headers: {
+    //         "content-type": "application/json",
+    //         authorization: getAccessToken(),
+    //       },
+    //       params: requestData.config.params,
+    //     });
+    //     // Return the response of the retry request
+    //     return response1;
     //   }
+    // } catch (error) {
+    //   return Promise.reject(error);
     // }
-    if (error.response?.status === 403) {
-      try {
-        let response = await API.getRefreshToken({ token: getRefreshToken() });
-        if (response.isSuccess) {
-          // sessionStorage.clear();
-          sessionStorage.removeItem("accesstoken");
-          setAccessToken(response.data.accessToken);
-          console.log(
-            "tokens🤑🤑",
-            response.data.accessToken,
-            "😣",
-            response.data.refreshToken
-          );
-          setRefreshToken(response.data.refreshToken);
+    // }
+    // else {
+    //   console.error("ERROR IN RESPONSE: ", JSON.stringify(error));
+    //   return {
+    //     isError: true,
+    //     msg: API_NOTIFICATION_MESSAGES.responseFailure,
+    //     code: error.response.status,
+    //   };
+    // }
 
-          const requestData = error.toJSON();
-          let response1 = await axios({
-            method: requestData.config.method,
-            url: requestData.config.baseURL + requestData.config.url,
-            headers: {
-              "content-type": "application/json",
-              authorization: getAccessToken(),
-            },
-            params: requestData.config.params,
-          });
-          // Return the response of the retry request
-          return response1;
-        }
-      } catch (error) {
-        return Promise.reject(error);
-      }
-    } else {
-      console.error("ERROR IN RESPONSE: ", JSON.stringify(error));
+    if (error.response) {
+      // request  made  and server responded with a status other that falls out of range 2.x.x
+      console.log("Error in response:", error.toJSON());
       return {
         isError: true,
         msg: API_NOTIFICATION_MESSAGES.responseFailure,
@@ -143,31 +128,12 @@ const ProcessError = async (error) => {
 
 const API = {};
 
-// Add a new method to refresh the token
-// API.refreshToken = async () => {
-//   const refreshToken = getRefreshToken();
-
-//   try {
-//     console.log("refrsh token.....");
-//     const response = await axiosInstance({
-//       method: "POST",
-//       url: "/token",
-//       data: { token: refreshToken },
-//     });
-//     console.log("Refresh Token Response:", response.data);
-//     return processResponse(response);
-//   } catch (error) {
-//     console.error("Error refreshing token...", error);
-//     return ProcessError(error);
-//   }
-// };
-
 for (const [key, value] of Object.entries(SERVICE_URL)) {
   API[key] = (body, showUploadProgress, showDownloadProgress) =>
     axiosInstance({
       method: value.method,
       url: value.url,
-      data: value.method === 'DELETE' ? {} : body,
+      data: value.method === "DELETE" ? {} : body,
       responseType: value.responseType,
       headers: {
         authorization: getAccessToken(),

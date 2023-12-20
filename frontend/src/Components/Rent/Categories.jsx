@@ -1,10 +1,11 @@
-
 import React from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { Container, Table } from "react-bootstrap";
+import { Container, Table, Button } from "react-bootstrap";
 import { categories } from "../../constants/data";
+import { useLocation } from "../../context/LocationProvider";
 
 const Categories = () => {
+  const { toggleViewNearbyPosts } = useLocation();
   // const [searchParams] = useSearchParams();
   // const category = searchParams.get("category");
 
@@ -24,7 +25,22 @@ const Categories = () => {
         >
           <thead>
             <tr>
-              <th style={{ backgroundColor: "lightgray", padding: "10px" }}>
+              <th colSpan="2">
+                <Button
+                  style={{
+                    width: "fit-content",
+                    height: "fit-content",
+                    marginBottom: "10px",
+                  }}
+                  onClick={toggleViewNearbyPosts}
+                >
+                  Nearby Options
+                </Button>
+                {/* </th>
+              <th
+                colSpan="2"
+                style={{ backgroundColor: "lightgray", padding: "10px" }}
+              > */}
                 <Link
                   to="/rent"
                   style={{ textDecoration: "none", color: "black" }}

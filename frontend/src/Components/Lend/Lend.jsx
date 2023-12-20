@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
+import axios from "axios";
 import { DataContext } from "../../context/DataProvider";
 import { useNavigate } from "react-router-dom";
 import "./Lend.css";
 import { API } from "../../service/api";
-
 const InitialPost = {
   category: "",
   size: "",
@@ -16,14 +16,17 @@ const InitialPost = {
   type: "",
   description: "",
   createDate: new Date(),
+  coordinates: [],
 };
 const Lend = () => {
   const [post, setPost] = useState(InitialPost);
   const [rentPriceError, setRentPriceError] = useState("");
   const [uploadImageError, setuploadImageError] = useState("");
   const [file, setFile] = useState("");
+
   const { account } = useContext(DataContext);
   const navigate = useNavigate();
+  const apiKey = import.meta.env.VITE_APP_API_KEY;
 
   useEffect(() => {
     const getImage = async () => {
@@ -59,12 +62,6 @@ const Lend = () => {
       setRentPriceError(""); // Clear the error message if the input is valid
     }
 
-    // setPost({
-    //   name: account.name,
-    //   phone: account.phone,
-    //   ...post,
-    //   [name]: value,
-    // });
     setPost((prevPost) => ({
       ...prevPost,
       [name]: value,
@@ -72,15 +69,57 @@ const Lend = () => {
       phone: account.phone,
     }));
   };
+  const convertAddressToCoordinates = async () => {
+    if (post.location) {
+      try {
+        const encodedLocation = encodeURIComponent(post.location);
+        const response = await axios.get(
+          `https://api.opencagedata.com/geocode/v1/json?q=${encodedLocation}&key=${apiKey}`
+        );
+
+        const { results } = response.data;
+
+        if (results.length > 0) {
+          const { lat, lng } = results[0].geometry;
+          setPost((prevPost) => ({
+            ...prevPost,
+            coordinates: [lat, lng],
+          }));
+          console.log("😊😊 Coordinates set:", [lat, lng]);
+          //console.log("🤦‍♀️🤦‍♀️ Post details", post);
+          // Return the coordinates so that they can be used in the handleSubmit function
+          return [lat, lng];
+        } else {
+          console.error("No results found for the entered location.");
+        }
+      } catch (error) {
+        console.error("Error fetching geocoding data:", error.message);
+        if (error.response) {
+          console.error("Response data:", error.response.data);
+          console.error("Response status:", error.response.status);
+          console.error("Response headers:", error.response.headers);
+        } else if (error.request) {
+          console.error("Request:", error.request);
+        }
+      }
+    }
+    return []; // Return empty array  if no coordinates are found
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can handle form submission here
-    //  const response =   await API.createPost(post);
-    const response = await API.createPost(post);
-    if (response && response.isSuccess) {
-      console.log("frontend", response);
-      navigate("/rent");
+    // Convert address to coordinates before submitting
+    const coordinates = await convertAddressToCoordinates();
+    console.log("Coordinates from convertAddressToCoordinates:", coordinates);
+    if (coordinates.length === 2) {
+      const newPost = { ...post, coordinates };
+      console.log("Updated post state with coordinates:", newPost);
+      const response = await API.createPost(newPost);
+      console.log("Response:", response);
+      if (response && response.isSuccess) {
+        console.log("frontend", response);
+        navigate("/rent");
+      }
     }
   };
 
