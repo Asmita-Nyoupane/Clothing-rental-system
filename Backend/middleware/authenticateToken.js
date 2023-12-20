@@ -8,6 +8,7 @@ const authenticateToken = (req, res, next) => {
   if (token == null) {
     return res.status(401).json({ msg: "Token is missing" });
   }
+  console.log("token in backend✌️✌️", token);
   jwt.verify(token, process.env.ACCESS_SECRET_KEY, (error, user) => {
     if (error) {
       return res.status(403).json({
@@ -65,7 +66,7 @@ const createNewToken = async (request, response) => {
     }
 
     const accessToken = jwt.sign(user, process.env.ACCESS_SECRET_KEY, {
-      expiresIn: "15m",
+      expiresIn: "1hr",
     });
 
     return response.status(200).json({ accessToken: accessToken });

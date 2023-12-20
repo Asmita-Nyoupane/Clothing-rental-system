@@ -13,6 +13,7 @@ const {
   getPost,
   updatePost,
   deletePost,
+  getNearByPosts,
 } = require("../controllers/post_controller");
 const {
   newComment,
@@ -51,6 +52,9 @@ router.get("/posts", getAllPosts);
 router.get("/post/:id", getPost);
 router.put("/update/:id", authenticateToken, updatePost);
 router.delete("/delete/:id", authenticateToken, deletePost);
+
+// route for get nearby post
+router.get("/near/posts", getNearByPosts);
 
 // routes for comments
 router.post("/comment/new", authenticateToken, newComment);
