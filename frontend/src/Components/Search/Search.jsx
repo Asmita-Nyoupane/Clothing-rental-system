@@ -13,11 +13,12 @@ const Search = () => {
       const buttonStyle = {
         padding: '4px 6px',
         borderRadius: '40px',
-        border: '1px solid #28a745',
-        background: '#28a745',
+        border: '1px solid  #007bff',
+        background: ' #007bff',
         color: 'white',
         cursor: 'pointer',
         margin:'-1px',
+      
       };
     
       const handleSearch = () => {

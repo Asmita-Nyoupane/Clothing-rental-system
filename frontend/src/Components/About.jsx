@@ -3,7 +3,7 @@ import MyImage from '../assets/aboutusimage.jpg'
 import { Link } from 'react-router-dom';
 const paragraphStyle = {
   fontFamily: 'Arial, sans-serif',
-  fontSize: '15px',
+  fontSize: '19px',
   lineHeight: '1.5',
   color: '#333', // Text color
   backgroundColor: '#f9f9f9', // Background color
@@ -16,31 +16,39 @@ const buttonStyle = {
   fontSize: '16px',
   backgroundColor: '#007bff',
   color: 'white',
-  padding: '10px 10px',
+  padding: '10px 2px',
   border: 'none',
   borderRadius: '5px',
   cursor: 'pointer',
-  margin: '-5px'
+  marginLeft: ' 100px'
 };
 
 const About = () => {
   return (
     <>
-  <div className="container">
+  <div className="container"style={{backgroundColor:'#ffe6e6'}}>
     <div className="row">
-      <div className="col-md-12">
+      <div className="col-md-8 ">
          
                <img src= {MyImage} alt=""
-                className="img-fluid rounded" 
-                
+                className="img-fluid rounded custom-image" 
+                style={ {width: '100%',
+                  height: '100%'}}
            /> 
-           <p style={paragraphStyle}>Our platform, the Clothing Rental System, leverages the power of technology to simplify the process of finding and renting clothing. It empowers users to explore and access a diverse range of clothing items, while also enabling individuals to showcase their fashion collections, fostering a community of fashion-conscious users.Also establishes a direct relationship between lenders (those offering clothing for rent) and renters (those seeking stylish attire).We aim to make fashion accessible, sustainable, and convenient for everyone. </p>
-       </div>           
-    </div>
-   </div>
-<Link to ="/login">
+            </div> 
+            <div className="col-md-4">
+           <p style={paragraphStyle}>Our platform, the Clothing Rental System, leverages the power of technology to simplify the process of finding and renting clothing. It empowers users to explore and access a diverse range of clothing items, while also enabling individuals to showcase their fashion collections, fostering a community of fashion-conscious users.Also establishes a direct relationship between lenders (those offering clothing for rent) and renters (those seeking stylish attire).We aim to make fashion accessible, sustainable, and convenient for everyone.
+            </p>
+
+
+            <Link to ="/login">
    <button style={buttonStyle}>Get Started</button>
    </Link>
+            </div>       
+   
+
+   </div>
+   </div>
     </>
     
 

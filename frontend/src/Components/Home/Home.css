@@ -16,7 +16,10 @@ html,body {
 
 h1{
     padding:20px;
-    margin:20px 10px;
+    margin:10px 10px;
+    font-family: 'Times New Roman', Times, serif;
+  
+    
 
 }
 /* p{
@@ -34,16 +37,16 @@ h1{
 /* Apply styles to the clothing image */
 .clothing-image {
     float: right; /* Float the image to the right */
-    width: 70%; /* Adjust this value based on your design preference */
-    height: 70%;
+    width: 60%; /* Adjust this value based on your design preference */
+    height: 40%;
   }
 
 /* Apply styles to the quotation */
 .quotation {
     font-family: 'Dancing Script', cursive;
-    font-size: 24px;
-    margin-top: 150px;
-    text-align: left;
+    font-size: 30px;
+    margin-top: 50px;
+    /* text-align: left; */
 }
 .rent-button {
     background-color: #007BFF;

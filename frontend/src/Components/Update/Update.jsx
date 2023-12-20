@@ -80,6 +80,7 @@ const handleChange = (e) => {
  
  return (
     <>
+    <div style={{backgroundColor:'#ffe6e6',marginTop:'-10px'}}> 
  <h1>Update Product</h1>
       <form >
         <div>
@@ -218,7 +219,9 @@ const handleChange = (e) => {
 
         <button onClick={updateBlogPost} type="submit">Update</button>
       </form>
+      </div>
     </>
+
   )
 };
 export default Update;

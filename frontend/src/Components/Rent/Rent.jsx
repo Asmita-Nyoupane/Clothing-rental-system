@@ -8,7 +8,7 @@ import Posts from "./Post/Posts";
 
 const Rent = () => {
   return (
-    <Row>
+    <Row style={{backgroundColor:'#ffe6e6'}}>
       {/* Categories column takes 3 columns on large screens, 4 columns on medium screens, and 12 columns on small screens */}
       <Col lg={2} md={2} xs={12}>
         <Categories />

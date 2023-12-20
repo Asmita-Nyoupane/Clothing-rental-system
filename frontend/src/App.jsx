@@ -11,6 +11,7 @@ import About from './Components/About'
 import Getstarted from './Components/About'
  import Details from './Components/Details/Details'
 import Update from './Components/Update/Update'
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute'
 
  const App = () => {
   return (
@@ -20,13 +21,13 @@ import Update from './Components/Update/Update'
     <DataProvider>
       <Routes>
          <Route path="/" element={<Home/>}/> 
-         <Route path="/lend" element={<Lend/>}/>
+         <Route path="/lend" element={  <PrivateRoute><Lend/></PrivateRoute>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup />} />
-         <Route path="/rent" element={<Rent/>}/> 
-         <Route path="/rent/details/:id" element={<Details/>}/>
+         <Route path="/rent" element={<PrivateRoute><Rent/></PrivateRoute>}/> 
+         <Route path="/rent/details/:id" element={<PrivateRoute><Details/></PrivateRoute>}/>
          
-          <Route path="/update/:id" element={<Update/>}/> 
+          <Route path="/update/:id" element={<PrivateRoute><Update/></PrivateRoute>}/> 
        
         
         <Route path="/about" element={< About />} />

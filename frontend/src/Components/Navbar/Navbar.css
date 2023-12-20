@@ -15,17 +15,13 @@
      
    
 }
-
- /* .logo{
-    float: left;
-    width: 50px;
-    float: right;
-   height: 0px; /* adjust as needed */
-   /* object-fit: contain; this will ensure the logo does not zoom in */
- 
-    /* height: 50px; adjust as needed */
-
-
+/* .logo{
+    /* display: flex; */
+    /* align-items: center;
+    padding-left: 0px;
+    display: inline-block;
+    margin-right: -4px;
+  } */ 
 
 .search {
     display: flex;

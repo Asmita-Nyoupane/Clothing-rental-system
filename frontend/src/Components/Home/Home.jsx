@@ -3,12 +3,13 @@ import fashionImage from '../../assets/fashion.webp';
 
 
 import "./Home.css";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
    <>
 
-      <div className="container">
+      <div className="container"style={{backgroundColor:'#ffe6e6'}}>
         <h1>Welcome to Clothing Rental System</h1>
         <img
           className="clothing-image"
@@ -25,8 +26,9 @@ const Home = () => {
           <p>
             <b>Start Renting"</b>
           </p>
-        </div>
+        </div><Link to={"/rent"}>
         <button className="rent-button">Rent Now</button>
+        </Link>
       </div>
       </>
   );

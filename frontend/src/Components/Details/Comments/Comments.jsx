@@ -50,7 +50,10 @@ const Comments = ({ post }) => {
   const addComment = async (e) => {
     try {
       console.log("Adding comment:", comment);
-      let response = await API.newComment(comment);
+      let response = await API.newComment({
+        ...comment,
+        name: account.name,
+      });
       console.log("API Response:", response);
 
       if (response.isSuccess) {
@@ -67,8 +70,8 @@ const Comments = ({ post }) => {
 
   return (
     <Container className="mt-5">
-      <Row
-        style={{
+        <Row 
+         style={{
           backgroundColor: "#d4edda",
           marginTop: "-10px",
           display: "flex ",

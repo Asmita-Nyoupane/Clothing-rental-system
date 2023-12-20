@@ -86,7 +86,7 @@ const Lend = () => {
   };
 
   return (
-    <div>
+    <div style={{backgroundColor:'#ffe6e6',marginTop:'-10px'}}>
       <h1>Product Form</h1>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
@@ -179,7 +179,7 @@ const Lend = () => {
           
 
 
-        <label htmlFor="type">Type:</label>
+        {/* <label htmlFor="type">Type:</label>
         <input
           type="text"
           id="type"
@@ -188,15 +188,15 @@ const Lend = () => {
           onChange={handleInputChange}
           required
           placeholder="example: shirt, lehenga, pant"
-        />
-        <label htmlFor="description">Description:</label>
+        /> */}
+        {/* <label htmlFor="description">Description:</label>
         <textarea
           type="text"
           id="description"
           name="description"
           value={post.description}
           onChange={handleInputChange}
-        />
+        /> */}
 
         <label htmlFor="size">Size:</label>
         <input
