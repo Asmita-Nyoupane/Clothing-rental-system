@@ -124,7 +124,7 @@ const Lend = () => {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: "#ffe6e6", marginTop: "-10px" }}>
       <h1>Product Form</h1>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>

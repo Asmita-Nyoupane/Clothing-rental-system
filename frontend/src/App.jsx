@@ -12,6 +12,7 @@ import Getstarted from "./Components/About";
 import Details from "./Components/Details/Details";
 import Update from "./Components/Update/Update";
 import { LocationProvider } from "./context/LocationProvider";
+import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 
 const App = () => {
   return (
@@ -22,12 +23,40 @@ const App = () => {
           <LocationProvider>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/lend" element={<Lend />} />
+              <Route
+                path="/lend"
+                element={
+                  <PrivateRoute>
+                    <Lend />
+                  </PrivateRoute>
+                }
+              />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/rent" element={<Rent />} />
-              <Route path="/rent/details/:id" element={<Details />} />
-              <Route path="/update/:id" element={<Update />} />
+              <Route
+                path="/rent"
+                element={
+                  <PrivateRoute>
+                    <Rent />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/rent/details/:id"
+                element={
+                  <PrivateRoute>
+                    <Details />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/update/:id"
+                element={
+                  <PrivateRoute>
+                    <Update />
+                  </PrivateRoute>
+                }
+              />
               <Route path="/about" element={<About />} />
               <Route path="/getstarted" element={<Getstarted />} />
             </Routes>

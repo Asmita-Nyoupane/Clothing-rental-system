@@ -2,9 +2,9 @@ import React, { useEffect, useState, useContext } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { API } from "../../service/api";
 import { DataContext } from "../../context/DataProvider";
-import Comments from "./comments/Comments";
+import { Row, Col, Card, Nav } from "react-bootstrap";
 import LocationMap from "./LocationMap";
-import "./Details.css";
+import Comments from "./Comments/Comments";
 
 const Details = () => {
   const [post, setPost] = useState({});
@@ -12,15 +12,7 @@ const Details = () => {
   const { id } = useParams();
   const { account } = useContext(DataContext);
   const navigate = useNavigate();
-  console.log("Account Name:", account.name);
-  console.log("Post Name:", post.name);
-
-  if (account.name === post.name) {
-    console.log("User is the author of the post.");
-  } else {
-    console.log("User is not the author of the post.");
-  }
-
+  const [activeTab, setActiveTab] = useState("details");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -59,45 +51,130 @@ const Details = () => {
     }
   };
 
-  try {
-    return (
-      <div className="container">
-        {/* Add a container div */}
-        <img src={post.image} alt="post" />
-        <h2 className="category">Category: {post.category}</h2>
-        <h2 className="type">Type: {post.type}</h2>
-        <h2 className="Price">Price: {post.rentPrice}</h2>
-        <h2 className="Gender">Gender: {post.gender}</h2>
-        <h2 className="Size">Size: {post.size}</h2>
-        <h2 className="name">Name: {post.name}</h2>
-        <h2 className="Phone">Phone: {post.phone}</h2>
+  return (
+    <div className="container" style={{ backgroundColor: "#ffe6e6" }}>
+      {/* Add a container div */}
+      <Row>
+        {/* Column for the image */}
+        <Col xs={12} md={6} className="mb-3">
+          <img src={post.image} alt="post" fluid style={{ height: "400px" }} />
+          <h6 className="name">Name: {post.name}</h6>
+          <h6 className="Phone">Phone: {post.phone}</h6>
+          <h6 className="Date">
+            Date: {new Date(post.createdDate).toDateString()}
+          </h6>
+        </Col>
 
-        <h2 className="Date">
-          Date: {new Date(post.createdDate).toDateString()}
-        </h2>
-        <h2 className="Description">Description: {post.description}</h2>
-        <br />
+        {/* Column for the details */}
+        <Col xs={12} md={4} className="mb-3">
+          <Card className="details-box">
+            <Card.Header>
+              <Nav
+                variant="tabs"
+                activeKey={activeTab}
+                onSelect={(selectedKey) => setActiveTab(selectedKey)}
+              >
+                <Nav.Item>
+                  <Nav.Link eventKey="details">Details</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="comments">Comments</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="location">Location</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Card.Header>
 
-        {account.name === post.name && (
-          <>
-            <Link to={`/Update/${post._id}`}>
-              <button className="edit">Edit</button>
-            </Link>
-            <button onClick={() => deleteBlog()} className="delete">
-              Delete
-            </button>
-          </>
-        )}
-        {post.location.coordinates && (
-          <LocationMap coordinate={post.location.coordinates} />
-        )}
-        <Comments post={post} />
-      </div>
-    );
-  } catch (error) {
-    console.error("Error rendering Details component:", error);
-    return <div>Error rendering details. Please check the console.</div>;
-  }
+            <Card.Body>
+              {activeTab === "details" && (
+                <>
+                  <h4
+                    className="category"
+                    style={{ color: "brown", fontSize: "20px" }}
+                  >
+                    Category: {post.category}{" "}
+                  </h4>
+                  <h2
+                    className="type"
+                    style={{ color: "brown", fontSize: "20px" }}
+                  >
+                    Type: {post.type}
+                  </h2>
+                  <h2
+                    className="Price"
+                    style={{ color: "brown", fontSize: "20px" }}
+                  >
+                    Price: {post.rentPrice}
+                  </h2>
+
+                  <h2
+                    className="Gender"
+                    style={{ color: "brown", fontSize: "20px" }}
+                  >
+                    Gender: {post.gender}
+                  </h2>
+                  <h2
+                    className="Size"
+                    style={{ color: "brown", fontSize: "20px" }}
+                  >
+                    Size: {post.size}
+                  </h2>
+
+                  <h2
+                    className="Description"
+                    style={{ color: "brown", fontSize: "20px" }}
+                  >
+                    Description: {post.description}
+                  </h2>
+                  <br />
+                  {account.name === post.name && (
+                    <>
+                      <Link to={`/Update/${post._id}`}>
+                        <button
+                          className="edit"
+                          style={{
+                            marginRight: "10px",
+                            margin: "5px",
+                            padding: "6px 15px",
+                            border: "1px solid #878787",
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(0, 0, 255, 0.589)",
+                            color: "#fff",
+                          }}
+                        >
+                          Update
+                        </button>
+                      </Link>
+                      <button
+                        onClick={() => deleteBlog()}
+                        className="delete"
+                        style={{
+                          margin: "5px",
+                          padding: "5px",
+                          border: "1px solid #878787",
+                          borderRadius: "10px",
+                          backgroundColor: "#ff6961",
+                          color: "#fff",
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
+                </>
+              )}
+
+              {activeTab === "comments" && <Comments post={post} />}
+              {activeTab === "location" && post.location.coordinates && (
+                <LocationMap coordinate={post.location.coordinates} />
+              )}
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </div>
+  );
 };
 
 export default Details;
