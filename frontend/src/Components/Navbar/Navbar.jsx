@@ -25,21 +25,11 @@ const Navbar = () => {
         className="menu-items"
         style={{ display: isMenuOpen ? "flex" : "none" }}
       >
-        <Link to="/" onClick={toggleMenu}>
-          Home
-        </Link>
-        <Link to="/about" onClick={toggleMenu}>
-          About
-        </Link>
-        <Link to="/lend" onClick={toggleMenu}>
-          Lend
-        </Link>
-        <Link to="/rent" onClick={toggleMenu}>
-          Rent
-        </Link>
-        <Link to="/login" onClick={toggleMenu}>
-          Login
-        </Link>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/lend">Lend</Link>
+        <Link to="/rent">Rent</Link>
+        <Link to="/login">Login</Link>
       </div>
       <div className="search">
         <Search />
