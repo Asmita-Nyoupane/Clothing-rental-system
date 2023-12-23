@@ -40,8 +40,15 @@ const postSchema = mongoose.Schema(
       required: true,
     },
     location: {
-      type: String,
-      required: true,
+      type: {
+        type: String,
+        required: true,
+        enum: ["Point"],
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
     },
     createdDate: {
       type: Date,
@@ -52,5 +59,6 @@ const postSchema = mongoose.Schema(
     timestamps: true, // Automatically add createdAt and updatedAt fields
   }
 );
+postSchema.index({ location: "2dsphere" });
 
 module.exports = mongoose.model("post", postSchema);

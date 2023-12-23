@@ -1,34 +1,39 @@
-import './Navbar.css'
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-// import {DataContext} from '../../context/DataProvider'
+// Navbar.js
+
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Search from "../Search/Search";
+import logo from "../../assets/logo.png";
+import "./Navbar.css";
 
 const Navbar = () => {
-  // const { account, setAccount } = useContext(DataContext);
+  const [isMenuOpen, setMenuOpen] = useState(true);
 
-  // Function to handle logout
-  // const handleLogout = () => {
-  //   // Implement logout logic here, e.g., clear the authentication token
-  //   sessionStorage.removeItem('accesstoken');
-  //   sessionStorage.removeItem('refreshToken');
-  //   setAccount(null);
-  // };
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
+  };
 
   return (
-    <div className="navbar">
-      <Link to="/">Home</Link>
-      <Link to="/about">About</Link>
-      <Link to="/lend">Lend</Link>
-      <Link to="/rent">Rent</Link>
-      <Link to="/login">Login</Link>
-{/* 
-      {account ? (
-        // Display "Logout" if the user is logged in
-        <Link to="/login" onClick={handleLogout}>Logout</Link>
-      ) : (
-        // Display "Login" if the user is not logged in
+    <div className={`navbar ${isMenuOpen ? "open" : ""}`}>
+      <img className="logo" src={logo} alt="Logo" />
+      <div className="menu-icon" onClick={toggleMenu}>
+        <div className="bar"></div>
+        <div className="bar"></div>
+        <div className="bar"></div>
+      </div>
+      <div
+        className="menu-items"
+        style={{ display: isMenuOpen ? "flex" : "none" }}
+      >
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/lend">Lend</Link>
+        <Link to="/rent">Rent</Link>
         <Link to="/login">Login</Link>
-      )} */}
+      </div>
+      <div className="search">
+        <Search />
+      </div>
     </div>
   );
 };

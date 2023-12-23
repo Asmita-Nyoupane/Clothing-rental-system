@@ -27,10 +27,10 @@ export const setAccessToken = (accesstoken) => {
 };
 
 export const setRefreshToken = (refreshToken) => {
-  sessionStorage.setItem("refreshToken", `Bearer ${refreshToken}`);
+  sessionStorage.setItem("refreshToken", ` ${refreshToken}`);
   const updatedToken = sessionStorage.getItem("refreshToken");
   console.log("after updating  refreshtoken✌️✌️", updatedToken);
-  return updatedToken;
+  // return updatedToken;
 };
 export const getType = (value, body) => {
   if (value.params) {

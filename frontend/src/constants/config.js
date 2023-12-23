@@ -27,15 +27,26 @@ export const API_NOTIFICATION_MESSAGES = {
 // API SERVICE CALL
 // SAMPLE REQUEST
 // NEED SERVICE CALL:{url:'/', method:'post/get/put/delete', params:true/false, query:true/fasle}
- export const  SERVICE_URL ={
-    userSignup:{url:'/signup', method:'POST'},
-    userLogin:{url:'/login', method:'POST'},
-    getRefreshToken: { url: '/token', method: 'POST' },
-    
-    uploadFile:{url:'/file/upload',method:'POST'},
-    createPost:{url:'create',method:'POST'},
-    getAllPosts:{url:'/posts', method:'GET', params:true},
-    getPostById: { url: 'post', method: 'GET', query: true },
-    updatePost:{url:'update', method:'PUT', query:true},
-    deletePost: { url: 'delete', method: 'DELETE', query: true },
-  }
+export const SERVICE_URL = {
+  userSignup: { url: "/signup", method: "POST" },
+  userLogin: { url: "/login", method: "POST" },
+  getRefreshToken: { url: "/token", method: "POST" },
+
+  uploadFile: { url: "/file/upload", method: "POST" },
+  createPost: { url: "create", method: "POST" },
+  getAllPosts: { url: "/posts", method: "GET", params: true },
+  getPostById: { url: "post", method: "GET", query: true },
+  updatePost: { url: "update", method: "PUT", query: true },
+  deletePost: { url: "delete", method: "DELETE", query: true },
+
+  getNearbyPosts: { url: "/near/posts", method: "GET", params: true },
+
+  newComment: { url: "/comment/new", method: "POST" },
+  getAllComments: { url: "comments", method: "GET", query: true },
+  deleteComment: { url: "comment/delete", method: "DELETE", query: true },
+
+  accessChat: { url: "/chat", method: "POST" },
+  fetchChat: { url: "/chats", method: "GET" },
+  sendMessage: { url: "/message", method: "POST" },
+  allMessage: { url: "/message/:chatId", method: "GET", query: true },
+};

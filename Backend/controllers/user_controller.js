@@ -36,7 +36,7 @@ const loginUser = async (req, res) => {
       const accessToken = jwt.sign(
         user.toJSON(),
         process.env.ACCESS_SECRET_KEY,
-        { expiresIn: "15m" }
+        { expiresIn: "1hr" }
       );
       const refreshToken = jwt.sign(
         user.toJSON(),
@@ -58,4 +58,28 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { signupUser, loginUser };
+//  /allUsers?search=asmita
+const allUsers = async (req, res) => {
+  const keyword = req.query.search
+    ? {
+        $or: [
+          {
+            name: { $regex: req.query.search, $options: "i" },
+          },
+          {
+            email: { $regex: req.query.search, $options: "i" },
+          },
+        ],
+      }
+    : {};
+  try {
+    const users = await User.find(keyword).find({
+      _id: { $ne: req.user._id },
+    });
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(500).json({ msg: "Users aren't found" });
+  }
+};
+
+module.exports = { signupUser, loginUser, allUsers };

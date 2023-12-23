@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useContext} from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { API } from "../service/api";
 import { DataContext } from "../context/DataProvider";
@@ -11,48 +11,53 @@ const loginInitialValues = {
 };
 
 const Login = () => {
-
   const [login, setLogin] = useState(loginInitialValues);
-  const [error, setError] = useState('');
-  const {setAccount} = useContext(DataContext);
+  const [error, setError] = useState("");
+  const { setAccount } = useContext(DataContext);
   const navigate = useNavigate();
 
   const onInputChange = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value });
   };
 
-  const loginUser =async(e)=>{
+  const loginUser = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
     try {
-      let response= await API.userLogin(login)
+      let response = await API.userLogin(login);
       if (response && response.isSuccess) {
-        setError('');
-       sessionStorage.setItem('accesstoken',`Bearer ${response.data.accessToken}`);
-       sessionStorage.setItem('refreshToken',`Bearer ${response.data.refreshToken}`);
-       setAccount({name:response.data.name, phone: response.data.phone})
-       setLogin(loginInitialValues)
-        navigate('/');
+        setError("");
+        sessionStorage.setItem(
+          "accesstoken",
+          `Bearer ${response.data.accessToken}`
+        );
+        sessionStorage.setItem(
+          "refreshToken",
+          `Bearer ${response.data.refreshToken}`
+        );
+        setAccount({ name: response.data.name, phone: response.data.phone });
+        setLogin(loginInitialValues);
+        navigate("/");
       } else {
-        setError('Something went wrong! Please try again later.');
+        setError("Something went wrong! Please try again later.");
       }
     } catch (error) {
-      console.log(error)
-      setError('Something went wrong ! Please try again later.');
+      console.log(error);
+      setError("Something went wrong ! Please try again later.");
     }
-  }
+  };
   return (
-    <div className="container-fluid mt-5">
+    <div
+      className="container-fluid mt-6"
+      style={{ backgroundColor: "2333eeed" }}
+    >
       <div className="row  justify-content-center">
         <div className="col-12 col-sm-8 col-md-6 col-lg-4">
           <div className="card">
             <div className="card-body">
               <h3 className="card-title text-center">Login</h3>
-              <form  autoComplete="off">
+              <form autoComplete="off">
                 <div className="mb-3">
-                  <label
-                    htmlFor="email"
-                    className="form-label"
-                  >
+                  <label htmlFor="email" className="form-label">
                     Email
                   </label>
                   <input
@@ -67,10 +72,7 @@ const Login = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label
-                    htmlFor="password"
-                    className="form-label"
-                  >
+                  <label htmlFor="password" className="form-label">
                     Password
                   </label>
                   <input
@@ -84,7 +86,19 @@ const Login = () => {
                     style={{ borderRadius: "5px" }}
                   />
                 </div>
-                {error && <span style={{color: '#c93737',fontSize: '14px',marginTop: '5px', lineHeight:'0',fontWeight:'600'}}>{error}</span>}
+                {error && (
+                  <span
+                    style={{
+                      color: "#c93737",
+                      fontSize: "14px",
+                      marginTop: "5px",
+                      lineHeight: "0",
+                      fontWeight: "600",
+                    }}
+                  >
+                    {error}
+                  </span>
+                )}
                 <button
                   type="button"
                   className="btn btn-primary"
@@ -96,7 +110,7 @@ const Login = () => {
                     padding: " 10px 20px",
                     margin: "10px 140px",
                   }}
-                  onClick={(e) => loginUser(e)} 
+                  onClick={(e) => loginUser(e)}
                 >
                   Login
                 </button>

@@ -97,6 +97,7 @@ const Signup = () => {
     <>
       <div
         style={{
+          backgroundColor:'#ffe6e6',
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

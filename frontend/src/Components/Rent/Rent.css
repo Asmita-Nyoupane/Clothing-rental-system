@@ -39,7 +39,13 @@
   font-size: 16px;
   color: #333;
 }
-
+.rent-container {
+  height: 100vh; /* Set height to 100% of viewport height */
+  padding: 20px; /* Optional padding for better spacing */
+}
+.rent-row {
+  height: 100%; /* Set height to 100% of the parent container */
+}
 /* Add more styles for other details if needed */
 
 /* Media query for responsiveness */
