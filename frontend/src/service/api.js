@@ -64,16 +64,6 @@ const processResponse = (response) => {
 // if fail->return{ isFailure:true, status:string, msg:string, statusCode:int}
 const ProcessError = async (error) => {
   if (error.response) {
-<<<<<<< HEAD
-      // Request made and server responded with a status code 
-      // that falls out of the range of 2xx
-      if (error.response?.status === 403) {
-          try {
-              let response = await API.refreshToken();
-              if (response.isSuccess) {
-                  // If refresh token is successful, update the access token and retry the original request
-                  setAccessToken(response.data.accesstoken);
-=======
     // Request made and server responded with a status code
     // that falls out of the range of 2xx
     // if (error.response?.status === 403) {
@@ -82,7 +72,6 @@ const ProcessError = async (error) => {
 
     //     if (response.isSuccess) {
     //       // If refresh token is successful, update the access token and retry the original request
->>>>>>> 979821346a0e996480b521b904c6db8929c35a18
 
     //       setAccessToken(response.data.accesstoken);
     //       console.log("😎😎", response.data.accesstoken);

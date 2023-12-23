@@ -10,12 +10,10 @@ const InitialPost = {
   image: "",
   gender: "",
   type:"",
-  description:"",
   rentPrice: "",
   name: "",
   phone: "",
   location: "",
-  type: "",
   description: "",
   createDate: new Date(),
 };
@@ -190,14 +188,6 @@ const Lend = () => {
           onChange={handleInputChange}
           required
           placeholder="example: shirt, lehenga, pant"
-        />
-        <label htmlFor="description">Description:</label>
-        <textarea
-          type="text"
-          id="description"
-          name="description"
-          value={post.description}
-          onChange={handleInputChange}
         />
 
         <label htmlFor="size">Size:</label>
