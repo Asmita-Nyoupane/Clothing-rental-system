@@ -15,6 +15,7 @@ const signupUser = async (req, res) => {
       phone: phone,
       password: hashedPassword,
       image: image,
+      role,
     };
     const newUser = new User(user);
     await newUser.save();
@@ -49,6 +50,8 @@ const loginUser = async (req, res) => {
         refreshToken: refreshToken,
         name: user.name,
         phone: user.phone,
+        image: user.image,
+        role: user.role,
       });
     } else {
       return res.status(400).json({ msg: "Password doesn't match" });

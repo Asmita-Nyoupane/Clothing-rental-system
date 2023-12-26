@@ -20,6 +20,12 @@ const userSchema = new Schema({
   },
   image: {
     type: String,
+    default: "https://static.thenounproject.com/png/12017-200.png",
+  },
+  role: {
+    type: String,
+    enum: ["customer", "admin"],
+    default: "customer",
   },
   date: {
     type: Date,

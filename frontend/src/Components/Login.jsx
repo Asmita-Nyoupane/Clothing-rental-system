@@ -34,7 +34,12 @@ const Login = () => {
           "refreshToken",
           `Bearer ${response.data.refreshToken}`
         );
-        setAccount({ name: response.data.name, phone: response.data.phone });
+        setAccount({
+          name: response.data.name,
+          phone: response.data.phone,
+          role: response.data.role,
+          image: response.data.image,
+        });
         setLogin(loginInitialValues);
         navigate("/");
       } else {
@@ -48,7 +53,7 @@ const Login = () => {
   return (
     <div
       className="container-fluid mt-6"
-      style={{ backgroundColor: "2333eeed" }}
+      // style={{ backgroundColor: "2333eeed" }}
     >
       <div className="row  justify-content-center">
         <div className="col-12 col-sm-8 col-md-6 col-lg-4">

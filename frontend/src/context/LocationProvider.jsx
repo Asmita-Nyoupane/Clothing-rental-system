@@ -7,9 +7,37 @@ const LocationProvider = ({ children }) => {
   const [userLocation, setUserLocation] = useState(null);
   const [viewNearbyPosts, setViewNearbyPosts] = useState(false);
 
+  // useEffect(() => {
+  //   if ("geolocation" in navigator) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       (position) => {
+  //         setUserLocation({
+  //           latitude: position.coords.latitude,
+  //           longitude: position.coords.longitude,
+  //         });
+  //         console.log(
+  //           "User's current location :",
+  //           position.coords.latitude,
+  //           position.coords.longitude
+  //         );
+  //       },
+  //       (error) => {
+  //         console.error("Error getting location:", error.message);
+  //       }
+  //     );
+  //   } else {
+  //     console.error("Geolocation is not supported");
+  //   }
+  // }, []);
   useEffect(() => {
     if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0,
+      };
+
+      const watchId = navigator.geolocation.watchPosition(
         (position) => {
           setUserLocation({
             latitude: position.coords.latitude,
@@ -23,8 +51,11 @@ const LocationProvider = ({ children }) => {
         },
         (error) => {
           console.error("Error getting location:", error.message);
-        }
+        },
+        options
       );
+
+      return () => navigator.geolocation.clearWatch(watchId);
     } else {
       console.error("Geolocation is not supported");
     }

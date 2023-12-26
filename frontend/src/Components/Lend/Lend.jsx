@@ -124,8 +124,8 @@ const Lend = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#ffe6e6", marginTop: "-10px" }}>
-      <h1>Product Form</h1>
+    <div style={{ marginTop: "-10px" }}>
+      <h1 style={{ fontSize: "2rem", fontWeight: "bold" }}>Lend Form</h1>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
           <label htmlFor="category">Category:</label>

@@ -52,7 +52,10 @@ const Details = () => {
   };
 
   return (
-    <div className="container" style={{ backgroundColor: "#ffe6e6" }}>
+    <div
+      className="container"
+      //  style={{ backgroundColor: "#ffe6e6" }}
+    >
       {/* Add a container div */}
       <Row>
         {/* Column for the image */}
@@ -62,6 +65,7 @@ const Details = () => {
           <h6 className="Phone">Phone: {post.phone}</h6>
           <h6 className="Date">
             Date: {new Date(post.createdDate).toDateString()}
+            {console.log("acountName", account.name)}
           </h6>
         </Col>
 
@@ -89,46 +93,49 @@ const Details = () => {
             <Card.Body>
               {activeTab === "details" && (
                 <>
-                  <h4
+                  <h2
                     className="category"
-                    style={{ color: "brown", fontSize: "20px" }}
+                    style={{ color: "black", fontSize: "20px" }}
                   >
                     Category: {post.category}{" "}
-                  </h4>
+                  </h2>
                   <h2
                     className="type"
-                    style={{ color: "brown", fontSize: "20px" }}
+                    style={{ color: "black", fontSize: "20px" }}
                   >
                     Type: {post.type}
                   </h2>
                   <h2
                     className="Price"
-                    style={{ color: "brown", fontSize: "20px" }}
+                    style={{ color: "black", fontSize: "20px" }}
                   >
                     Price: {post.rentPrice}
                   </h2>
 
                   <h2
                     className="Gender"
-                    style={{ color: "brown", fontSize: "20px" }}
+                    style={{ color: "black", fontSize: "20px" }}
                   >
                     Gender: {post.gender}
                   </h2>
                   <h2
                     className="Size"
-                    style={{ color: "brown", fontSize: "20px" }}
+                    style={{ color: "black", fontSize: "20px" }}
                   >
                     Size: {post.size}
                   </h2>
 
                   <h2
                     className="Description"
-                    style={{ color: "brown", fontSize: "20px" }}
+                    style={{ color: "black", fontSize: "20px" }}
                   >
                     Description: {post.description}
                   </h2>
                   <br />
-                  {account.name === post.name && (
+                  {console.log("account.name", account.name)}
+                  {console.log("account.name", post.name)}
+                  {console.log("role🤑", account.role)}
+                  {account.role === "admin" || account.name === post.name ? (
                     <>
                       <Link to={`/Update/${post._id}`}>
                         <button
@@ -161,7 +168,7 @@ const Details = () => {
                         Delete
                       </button>
                     </>
-                  )}
+                  ) : null}
                 </>
               )}
 

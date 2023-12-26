@@ -49,7 +49,7 @@ const Comment = ({ comment, setToggle }) => {
           >
             {new Date(comment.date).toDateString()}
           </Badge>
-          {comment.name === account.name && (
+          {comment.name === account.name || account.role === "admin" ? (
             <Button
               variant="danger"
               className="ml-auto"
@@ -60,7 +60,7 @@ const Comment = ({ comment, setToggle }) => {
             >
               Delete
             </Button>
-          )}
+          ) : null}
         </div>
         <Card.Text>{comment.comments}</Card.Text>
       </Card.Body>

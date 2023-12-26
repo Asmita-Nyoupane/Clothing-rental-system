@@ -7,7 +7,10 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <>
-      <div className="container" style={{ backgroundColor: "#ffe6e6" }}>
+      <div
+        className="container"
+        // style={{ backgroundColor: "#ffe6e6" }}
+      >
         <h1
           style={{ fontWeight: "bold", fontSize: "3rem", marginLeft: "20px" }}
         >

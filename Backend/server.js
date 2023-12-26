@@ -1,6 +1,7 @@
 const app = require("express")();
 const connectToMongo = require("./database/db");
 const router = require("./routes/route");
+const adminRouter = require("./routes/adminRoute");
 const cors = require("cors");
 const bodyparser = require("body-parser");
 
@@ -14,6 +15,7 @@ app.use(bodyparser.json());
 
 // available routes
 app.use("/", router);
+app.use("/", adminRouter);
 
 connectToMongo()
   .then(() => {

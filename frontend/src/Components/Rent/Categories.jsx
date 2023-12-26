@@ -10,7 +10,7 @@ const Categories = () => {
   // const category = searchParams.get("category");
 
   return (
-    <Container style={{ marginTop: "20px", display: "grid", width: "80%" }}>
+    <Container style={{ marginTop: "-10px", display: "grid", width: "80%" }}>
       <div style={{ textAlign: "center" }}>
         <Table
           bordered={false}
