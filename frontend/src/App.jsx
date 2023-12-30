@@ -13,6 +13,7 @@ import Details from "./Components/Details/Details";
 import Update from "./Components/Update/Update";
 import { LocationProvider } from "./context/LocationProvider";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+import Chatpage from "./Components/Details/ChatPage";
 
 const App = () => {
   return (
@@ -59,6 +60,7 @@ const App = () => {
               />
               <Route path="/about" element={<About />} />
               <Route path="/getstarted" element={<Getstarted />} />
+              <Route path="/ChatPage" element ={<Chatpage/>}/>
             </Routes>
           </LocationProvider>
         </DataProvider>
