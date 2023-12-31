@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import fashionImage from "../../assets/fashion.webp";
+import { DataContext } from "../../context/DataProvider";
 
 import "./Home.css";
 import { Link } from "react-router-dom";
 
 const Home = () => {
+  const { account } = useContext(DataContext);
   return (
     <>
       <div
@@ -32,9 +34,15 @@ const Home = () => {
             <b>Start Renting"</b>
           </p>
         </div>
-        <Link to={"/rent"}>
-          <button className="rent-button">Rent Now</button>
-        </Link>
+        {account.name ? (
+          <Link to={"/rent"}>
+            <button className="rent-button">Rent Now</button>
+          </Link>
+        ) : (
+          <Link to={"/login"}>
+            <button className="rent-button">Rent Now</button>
+          </Link>
+        )}
       </div>
     </>
   );

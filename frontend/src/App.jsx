@@ -33,22 +33,8 @@ const App = () => {
               />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route
-                path="/rent"
-                element={
-                  <PrivateRoute>
-                    <Rent />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/rent/details/:id"
-                element={
-                  <PrivateRoute>
-                    <Details />
-                  </PrivateRoute>
-                }
-              />
+              <Route path="/rent" element={<Rent />} />
+              <Route path="/rent/details/:id" element={<Details />} />
               <Route
                 path="/update/:id"
                 element={

@@ -135,7 +135,7 @@ const Details = () => {
                   {console.log("account.name", account.name)}
                   {console.log("account.name", post.name)}
                   {console.log("role🤑", account.role)}
-                  {account.role === "admin" || account.name === post.name ? (
+                  {account.name === post.name ? (
                     <>
                       <Link to={`/Update/${post._id}`}>
                         <button
@@ -153,6 +153,10 @@ const Details = () => {
                           Update
                         </button>
                       </Link>
+                    </>
+                  ) : null}
+                  {account.role === "admin" || account.name === post.name ? (
+                    <>
                       <button
                         onClick={() => deleteBlog()}
                         className="delete"

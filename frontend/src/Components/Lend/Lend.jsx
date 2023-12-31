@@ -152,6 +152,7 @@ const Lend = () => {
             name="rentPrice"
             value={post.rentPrice}
             onChange={handleInputChange}
+            placeholder="Enter the rent price per day in ruppess "
             required
           />
           {rentPriceError && (

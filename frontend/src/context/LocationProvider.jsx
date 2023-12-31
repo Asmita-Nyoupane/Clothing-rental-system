@@ -7,28 +7,8 @@ const LocationProvider = ({ children }) => {
   const [userLocation, setUserLocation] = useState(null);
   const [viewNearbyPosts, setViewNearbyPosts] = useState(false);
 
-  // useEffect(() => {
-  //   if ("geolocation" in navigator) {
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //         setUserLocation({
-  //           latitude: position.coords.latitude,
-  //           longitude: position.coords.longitude,
-  //         });
-  //         console.log(
-  //           "User's current location :",
-  //           position.coords.latitude,
-  //           position.coords.longitude
-  //         );
-  //       },
-  //       (error) => {
-  //         console.error("Error getting location:", error.message);
-  //       }
-  //     );
-  //   } else {
-  //     console.error("Geolocation is not supported");
-  //   }
-  // }, []);
+  const [nearby, setNearby] = useState("Nearby Options");
+
   useEffect(() => {
     if ("geolocation" in navigator) {
       const options = {
@@ -67,7 +47,10 @@ const LocationProvider = ({ children }) => {
 
   const toggleViewNearbyPosts = () => {
     setViewNearbyPosts((prev) => !prev);
-    // console.log("nearer post:", viewNearbyPosts);
+    // toggel the inner text of button
+    setNearby((prevNearby) =>
+      prevNearby === "Nearby Options" ? "Explore All" : "Nearby Options"
+    );
   };
   useEffect(() => {
     console.log("nearer post:", viewNearbyPosts);
@@ -80,6 +63,7 @@ const LocationProvider = ({ children }) => {
         updateUserLocation,
         viewNearbyPosts,
         toggleViewNearbyPosts,
+        nearby,
       }}
     >
       {children}

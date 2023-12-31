@@ -3,6 +3,7 @@ import { Container, Row, Col, Form, Button, Image } from "react-bootstrap";
 
 import { DataContext } from "../../../context/DataProvider";
 import { API } from "../../../service/api";
+import { useNavigate } from "react-router-dom";
 //components
 import Comment from "./Comment";
 
@@ -19,6 +20,7 @@ const Comments = ({ post }) => {
   const [toggle, setToggle] = useState(false);
 
   const { account } = useContext(DataContext);
+  const navigate = useNavigate();
 
   const url = account.image
     ? account.image
@@ -49,20 +51,21 @@ const Comments = ({ post }) => {
 
   const addComment = async (e) => {
     try {
-      console.log("Adding comment:", comment);
-      let response = await API.newComment({
-        ...comment,
-        name: account.name,
-      });
-      console.log("API Response:", response);
+      if (!account.name) {
+        navigate("/login");
+      } else {
+        console.log("Adding comment:", comment);
+        let response = await API.newComment({
+          ...comment,
+          name: account.name,
+        });
+        console.log("API Response:", response);
 
-      if (response.isSuccess) {
-        setComment(initialValue);
+        if (response.isSuccess) {
+          setComment(initialValue);
+        }
+        setToggle((prevState) => !prevState);
       }
-      setToggle((prevState) => !prevState);
-      // else {
-      // console.error("API Error:", response.error);
-      //   }
     } catch (error) {
       console.error("Error adding comment:", error.message || error);
     }
@@ -70,8 +73,8 @@ const Comments = ({ post }) => {
 
   return (
     <Container className="mt-5">
-        <Row 
-         style={{
+      <Row
+        style={{
           backgroundColor: "#d4edda",
           marginTop: "-10px",
           display: "flex ",
@@ -112,6 +115,7 @@ const Comments = ({ post }) => {
             size="md"
             style={{ height: 40 }}
             onClick={(e) => addComment(e)}
+            // disabled={!account.name}
           >
             Post
           </Button>
