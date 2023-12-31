@@ -13,7 +13,6 @@ const InitialPost = {
   name: "",
   phone: "",
   location: "",
-  type: "",
   description: "",
   createDate: new Date(),
   coordinates: [],
