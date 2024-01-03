@@ -9,11 +9,11 @@ import Comments from "./Comments/Comments";
 const Details = () => {
   const [post, setPost] = useState({});
   const [loading, setLoading] = useState(true);
-  const [contacts, setContacts] = useState([]);
   const { id } = useParams();
   const { account, setChats } = useContext(DataContext);
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("details");
+  console.log("post id in details page", id);
   useEffect(() => {
     const fetchData = async () => {
       try {

@@ -8,12 +8,13 @@ import Navbar from "./Components/Navbar/Navbar";
 import Signup from "./Components/Auth/Signup";
 import DataProvider from "./context/DataProvider";
 import About from "./Components/About";
-import Getstarted from "./Components/About";
+// import Getstarted from "./Components/About";
 import Details from "./Components/Details/Details";
 import Update from "./Components/Update/Update";
 import { LocationProvider } from "./context/LocationProvider";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
-import Chatpage from "./Components/Details/ChatPage";
+import Chatpage from "../Pages/ChatPage";
+import SearchResult from "../Pages/SearchResult";
 
 const App = () => {
   return (
@@ -35,7 +36,7 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/rent" element={<Rent />} />
-              <Route path="/rent/details/:id" element={<Details />} />
+              <Route path="/:page/details/:id" element={<Details />} />
               <Route
                 path="/update/:id"
                 element={
@@ -45,7 +46,7 @@ const App = () => {
                 }
               />
               <Route path="/about" element={<About />} />
-              <Route path="/getstarted" element={<Getstarted />} />
+              <Route path="/searchResult" element={<SearchResult />} />
               <Route path="/chatPage" element={<Chatpage />} />
             </Routes>
           </LocationProvider>

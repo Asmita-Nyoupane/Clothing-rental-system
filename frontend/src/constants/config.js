@@ -49,4 +49,6 @@ export const SERVICE_URL = {
   searchUser: { url: "/searchUser", method: "GET", params: true },
   sendMessage: { url: "/message", method: "POST" },
   allMessage: { url: "/message/", method: "GET", params: true },
+
+  SearchKeyword: { url: "/search", method: "GET", query: true },
 };

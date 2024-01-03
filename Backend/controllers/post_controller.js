@@ -136,6 +136,22 @@ const getNearByPosts = async (req, res) => {
     return res.status(500).json({ msg: error.message });
   }
 };
+const searchItem = async (req, res) => {
+  try {
+    const keyword = req.params.keyword;
+    const result = await Post.find({
+      $or: [
+        { name: { $regex: keyword, $options: "i" } },
+        { type: { $regex: keyword, $options: "i" } },
+        { location: { $regex: keyword, $options: "i" } },
+        { description: { $regex: keyword, $options: "i" } },
+      ],
+    });
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
 
 module.exports = {
   createPost,
@@ -144,4 +160,5 @@ module.exports = {
   updatePost,
   deletePost,
   getNearByPosts,
+  searchItem,
 };

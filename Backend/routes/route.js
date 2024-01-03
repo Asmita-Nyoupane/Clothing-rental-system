@@ -15,6 +15,7 @@ const {
   updatePost,
   deletePost,
   getNearByPosts,
+  searchItem,
 } = require("../controllers/post_controller");
 const {
   newComment,
@@ -67,5 +68,8 @@ router.delete("/comment/delete/:id", authenticateToken, deleteComment);
 // routes for message
 router.post("/message", authenticateToken, sendMessage);
 router.get("/message/", authenticateToken, allMessage);
+
+// routes for search based filter
+router.get("/search/:keyword", searchItem);
 
 module.exports = router;

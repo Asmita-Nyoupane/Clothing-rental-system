@@ -1,40 +1,43 @@
-import React from 'react'
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import { SearchContext } from "../../context/SearchProvider";
+import { useContext } from "react";
+import { API } from "../../service/api";
+import { useNavigate } from "react-router";
 
-
-
-const Search = () => {
-    const inputStyle = {
-        padding: '8px',
-        borderRadius: '40px',
-        border: '1px solid #ccc',
-        marginRight: '5px',
-      };
-    
-      const buttonStyle = {
-        padding: '4px 6px',
-        borderRadius: '40px',
-        border: '1px solid  #007bff',
-        background: ' #007bff',
-        color: 'white',
-        cursor: 'pointer',
-        margin:'-1px',
-      
-      };
-    
-      const handleSearch = () => {
-        // Implement your search logic here
-        console.log('Search button clicked');
-      };
-
+function Search() {
+  const navigate = useNavigate();
+  const { setKeyword, setResult, keyword, result } = useContext(SearchContext);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await API.SearchKeyword(keyword);
+      setResult(response.data);
+      navigate("/searchResult");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-
-<input type="text" placeholder="Search..." style={inputStyle} />
-      <button onClick={handleSearch} style={buttonStyle}>
-        Search 
-      </button>
-    </div>
-  )
+    <Row>
+      <Col xs="auto">
+        <Form.Control
+          type="text"
+          placeholder="Search"
+          className=" mr-sm-2"
+          value={keyword || ""}
+          onChange={(e) => setKeyword(e.target.value)}
+        />
+      </Col>
+      <Col xs="auto">
+        <Button type="submit" onClick={handleSubmit}>
+          Search
+        </Button>
+      </Col>
+    </Row>
+  );
 }
 
-export default Search
+export default Search;
