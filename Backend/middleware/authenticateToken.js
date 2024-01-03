@@ -8,7 +8,7 @@ const authenticateToken = (req, res, next) => {
   if (token == null) {
     return res.status(401).json({ msg: "Token is missing" });
   }
-  console.log("token in backend✌️✌️", token);
+  // console.log("token in backend✌️✌️", token);
   jwt.verify(token, process.env.ACCESS_SECRET_KEY, (error, user) => {
     if (error) {
       return res.status(403).json({
@@ -19,8 +19,6 @@ const authenticateToken = (req, res, next) => {
     next();
   });
 };
-
-//   const refreshToken = request.body.token.split(" ")[1];
 
 //   if (!refreshToken) {
 //     return response.status(401).json({ msg: "Refresh token is missing" });
@@ -48,7 +46,7 @@ const createNewToken = async (request, response) => {
   const refreshToken = request.body
     ? request.body.token.split(" ")[1]
     : undefined;
-  console.log("Refresh Token:", refreshToken);
+  // console.log("Refresh Token:", refreshToken);
 
   if (!refreshToken) {
     return response.status(401).json({ msg: "Refresh token is missing" });
@@ -66,7 +64,7 @@ const createNewToken = async (request, response) => {
     }
 
     const accessToken = jwt.sign(user, process.env.ACCESS_SECRET_KEY, {
-      expiresIn: "1hr",
+      expiresIn: "1day",
     });
 
     return response.status(200).json({ accessToken: accessToken });

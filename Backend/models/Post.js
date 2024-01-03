@@ -39,6 +39,14 @@ const postSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    userId: {
+      type: String,
+      required: true,
+    },
+    profilePic: {
+      type: String,
+      required: true,
+    },
     location: {
       type: {
         type: String,

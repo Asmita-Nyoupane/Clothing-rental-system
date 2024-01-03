@@ -37,7 +37,7 @@ const loginUser = async (req, res) => {
       const accessToken = jwt.sign(
         user.toJSON(),
         process.env.ACCESS_SECRET_KEY,
-        { expiresIn: "1hr" }
+        { expiresIn: "1day" }
       );
       const refreshToken = jwt.sign(
         user.toJSON(),
@@ -52,6 +52,7 @@ const loginUser = async (req, res) => {
         phone: user.phone,
         image: user.image,
         role: user.role,
+        _id: user._id,
       });
     } else {
       return res.status(400).json({ msg: "Password doesn't match" });
@@ -85,4 +86,18 @@ const allUsers = async (req, res) => {
   }
 };
 
-module.exports = { signupUser, loginUser, allUsers };
+const getAllUser = async (req, res) => {
+  // console.log("getall user in baackend", req.params.id);
+  try {
+    const users = await User.find({
+      _id: { $ne: req.params.id },
+      role: { $nin: ["admin", "user"] }, // exclude users with roles "admin" and "user"
+    }).select(["name", "image", "_id"]);
+    // console.log("users from backend", users);
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(500).json({ msg: "Users aren't found" });
+  }
+};
+
+module.exports = { signupUser, loginUser, allUsers, getAllUser };

@@ -22,7 +22,6 @@ const Lend = () => {
   const [rentPriceError, setRentPriceError] = useState("");
   const [uploadImageError, setuploadImageError] = useState("");
   const [file, setFile] = useState("");
-
   const { account } = useContext(DataContext);
   const navigate = useNavigate();
   const apiKey = import.meta.env.VITE_APP_API_KEY;
@@ -48,8 +47,6 @@ const Lend = () => {
       }
     };
     getImage();
-    // post.name = account.name;
-    // post.phone = account.phone;
   }, [file]);
 
   const handleInputChange = (e) => {
@@ -66,6 +63,8 @@ const Lend = () => {
       [name]: value,
       name: account.name,
       phone: account.phone,
+      userId: account._id,
+      profilePic: account.image,
     }));
   };
   const convertAddressToCoordinates = async () => {

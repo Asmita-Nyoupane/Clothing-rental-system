@@ -9,8 +9,9 @@ import Comments from "./Comments/Comments";
 const Details = () => {
   const [post, setPost] = useState({});
   const [loading, setLoading] = useState(true);
+  const [contacts, setContacts] = useState([]);
   const { id } = useParams();
-  const { account } = useContext(DataContext);
+  const { account, setChats } = useContext(DataContext);
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("details");
   useEffect(() => {
@@ -29,6 +30,34 @@ const Details = () => {
     };
     fetchData();
   }, [id]);
+  // console.log("Post Info", post);
+  const initiateChat = async () => {
+    if (!account) {
+      console.error("User not authenticated. Cannot initiate chat.");
+      navigate("/login");
+    }
+
+    const { userId, name, profilePic } = post;
+    if (!post || !account) {
+      console.error("No post or account data found. Cannot initiate chat.");
+      return;
+    }
+    if (!userId) {
+      console.error("Post does not have a valid userId property.");
+      return;
+    }
+    try {
+      setChats({
+        _id: userId,
+        name,
+        image: profilePic,
+      });
+      navigate("/chatPage");
+    } catch (error) {
+      console.error("Error initiating chat:", error);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>; // Display loading message
   }
@@ -56,17 +85,34 @@ const Details = () => {
       className="container"
       //  style={{ backgroundColor: "#ffe6e6" }}
     >
-      {/* Add a container div */}
       <Row>
         {/* Column for the image */}
         <Col xs={12} md={6} className="mb-3">
-          <img src={post.image} alt="post" fluid style={{ height: "400px" }} />
-          <h6 className="name">Name: {post.name}</h6>
-          <h6 className="Phone">Phone: {post.phone}</h6>
-          <h6 className="Date">
+          <img src={post.image} alt="post" style={{ height: "400px" }} />
+          <h4 className="name">Name: {post.name}</h4>
+          <h5 className="Date" style={{ right: "30px" }}>
             Date: {new Date(post.createdDate).toDateString()}
-            {console.log("acountName", account.name)}
-          </h6>
+            {console.log("acountName", account)}
+          </h5>
+
+          <Link to="/chatPage">
+            <button
+              className="chat"
+              onClick={initiateChat}
+              style={{
+                marginRight: "10px",
+                margin: "5px",
+                padding: "6px 15px",
+                border: "1px solid #878787",
+                borderRadius: "10px",
+                backgroundColor: "rgba(0, 0, 255, 0.589)",
+                color: "#fff",
+              }}
+              // disabled={!account || !account._id}
+            >
+              Chat Now
+            </button>
+          </Link>
         </Col>
 
         {/* Column for the details */}
@@ -133,7 +179,7 @@ const Details = () => {
                   </h2>
                   <br />
                   {console.log("account.name", account.name)}
-                  {console.log("account.name", post.name)}
+                  {console.log("Post.name", post.name)}
                   {console.log("role🤑", account.role)}
                   {account.name === post.name ? (
                     <>

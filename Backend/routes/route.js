@@ -5,6 +5,7 @@ const {
   signupUser,
   loginUser,
   allUsers,
+  getAllUser,
 } = require("../controllers/user_controller");
 const { uploadImage, getImage } = require("../controllers/image_controller");
 const {
@@ -27,7 +28,6 @@ const {
   createNewToken,
 } = require("../middleware/authenticateToken");
 
-const { accessChat, fetchChats } = require("../controllers/chat_controller");
 const {
   sendMessage,
   allMessage,
@@ -46,6 +46,9 @@ router.post("/token", createNewToken);
 //routes for searching the user
 router.get("/searchUser", authenticateToken, allUsers);
 
+// routes for get all user
+router.get("/getAllUser/:id", authenticateToken, getAllUser);
+
 // routes for post
 router.post("/create", authenticateToken, createPost);
 router.get("/posts", getAllPosts);
@@ -61,12 +64,8 @@ router.post("/comment/new", authenticateToken, newComment);
 router.get("/comments/:id", authenticateToken, getComments);
 router.delete("/comment/delete/:id", authenticateToken, deleteComment);
 
-//routes for chat
-router.post("/chat", authenticateToken, accessChat);
-router.get("/chats", authenticateToken, fetchChats);
-
 // routes for message
 router.post("/message", authenticateToken, sendMessage);
-router.get("/message/:chatId", authenticateToken, allMessage);
+router.get("/message/", authenticateToken, allMessage);
 
 module.exports = router;

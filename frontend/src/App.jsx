@@ -1,11 +1,11 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Components/Home/Home";
-import Login from "./Components/Login";
+import Login from "./Components/Auth/Login";
 import Lend from "./Components/Lend/Lend";
 import Rent from "./Components/Rent/Rent";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
-import Signup from "./Components/Signup";
+import Signup from "./Components/Auth/Signup";
 import DataProvider from "./context/DataProvider";
 import About from "./Components/About";
 import Getstarted from "./Components/About";
@@ -46,7 +46,7 @@ const App = () => {
               />
               <Route path="/about" element={<About />} />
               <Route path="/getstarted" element={<Getstarted />} />
-              <Route path="/ChatPage" element ={<Chatpage/>}/>
+              <Route path="/chatPage" element={<Chatpage />} />
             </Routes>
           </LocationProvider>
         </DataProvider>

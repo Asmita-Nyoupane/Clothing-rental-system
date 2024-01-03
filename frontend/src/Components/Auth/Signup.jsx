@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { API } from "../service/api";
+import { API } from "../../service/api";
 const signupInitialValues = {
   name: "",
   email: "",
@@ -97,7 +97,7 @@ const Signup = () => {
     <>
       <div
         style={{
-          backgroundColor:'#ffe6e6',
+          backgroundColor: "#ffe6e6",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

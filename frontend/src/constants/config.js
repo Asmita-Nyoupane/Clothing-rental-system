@@ -45,8 +45,8 @@ export const SERVICE_URL = {
   getAllComments: { url: "comments", method: "GET", query: true },
   deleteComment: { url: "comment/delete", method: "DELETE", query: true },
 
-  accessChat: { url: "/chat", method: "POST" },
-  fetchChat: { url: "/chats", method: "GET" },
+  getAllUsers: { url: "/getAllUser", method: "GET", query: true },
+  searchUser: { url: "/searchUser", method: "GET", params: true },
   sendMessage: { url: "/message", method: "POST" },
-  allMessage: { url: "/message/:chatId", method: "GET", query: true },
+  allMessage: { url: "/message/", method: "GET", params: true },
 };

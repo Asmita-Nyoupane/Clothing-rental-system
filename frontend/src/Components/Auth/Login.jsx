@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import { API } from "../service/api";
-import { DataContext } from "../context/DataProvider";
+import { API } from "../../service/api";
+import { DataContext } from "../../context/DataProvider";
 import { useNavigate } from "react-router-dom";
 
 const loginInitialValues = {
@@ -13,7 +13,7 @@ const loginInitialValues = {
 const Login = () => {
   const [login, setLogin] = useState(loginInitialValues);
   const [error, setError] = useState("");
-  const { setAccount } = useContext(DataContext);
+  const { account, setAccount } = useContext(DataContext);
   const navigate = useNavigate();
 
   const onInputChange = (e) => {
@@ -25,6 +25,7 @@ const Login = () => {
     try {
       let response = await API.userLogin(login);
       if (response && response.isSuccess) {
+        console.log("REsponse DAta", response.data);
         setError("");
         sessionStorage.setItem(
           "accesstoken",
@@ -34,11 +35,18 @@ const Login = () => {
           "refreshToken",
           `Bearer ${response.data.refreshToken}`
         );
-        setAccount({
-          name: response.data.name,
-          phone: response.data.phone,
-          role: response.data.role,
-          image: response.data.image,
+        console.log("response in login", response.data);
+        setAccount((prevAccount) => {
+          const updatedAccount = {
+            name: response.data.name,
+            phone: response.data.phone,
+            role: response.data.role,
+            image: response.data.image,
+            _id: response.data._id,
+          };
+
+          localStorage.setItem("UserInfo", JSON.stringify(updatedAccount));
+          return updatedAccount;
         });
         setLogin(loginInitialValues);
         navigate("/");

@@ -17,6 +17,8 @@ const createPost = async (req, res) => {
       image: req.body.image,
       name: req.body.name,
       phone: req.body.phone,
+      userId: req.body.userId,
+      profilePic: req.body.profilePic,
       location: {
         type: "Point",
         coordinates: [parseFloat(latitude), parseFloat(longitude)],
@@ -99,7 +101,7 @@ const deletePost = async (req, res) => {
   }
 };
 
-// Get all the items nearer to the user's current location
+// get all the items nearer to the user's current location
 const getNearByPosts = async (req, res) => {
   try {
     const { latitude, longitude } = req.query;
@@ -111,7 +113,7 @@ const getNearByPosts = async (req, res) => {
         .json({ msg: "Latitude and longitude are required" });
     }
 
-    const radius = 8; // Specify the radius in kilometers for nearby posts
+    const radius = 8; // radius
     const maxDistance = radius * 1000; // Convert radius to meters
 
     const nearbyPosts = await Post.aggregate([
