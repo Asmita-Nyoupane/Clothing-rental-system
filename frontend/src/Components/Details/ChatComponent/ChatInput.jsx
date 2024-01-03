@@ -16,7 +16,7 @@ const ChatInput = ({ handleSendMsg }) => {
     }
     // console.log("Emoji", emojiObject.emoji);
     setMsg((prevMsg) => prevMsg + emojiObject.emoji);
-    // setshowEmojiPicker(false);
+    setshowEmojiPicker(false);
   };
   const sendChat = (event) => {
     event.preventDefault();
@@ -34,12 +34,11 @@ const ChatInput = ({ handleSendMsg }) => {
           {showEmojiPicker && (
             <Picker
               onEmojiClick={handleEmojiClick}
-              // pickerStyle={{
-              //   position: "absolute",
-              //   top: "-200px",
-              //   left: "50%",
-              //   transform: "translateX(-50%)",
-              // }}
+              style={{
+                height: "450px",
+                width: "350px",
+                top: "-350px",
+              }}
             />
           )}
         </div>
