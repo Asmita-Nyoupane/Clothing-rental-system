@@ -215,7 +215,7 @@ const Lend = () => {
           placeholder="material,color and condition of clothes "
         />
 
-        <label htmlFor="size">Size:</label>
+        {/* <label htmlFor="size">Size:</label>
         <input
           type="text"
           id="size"
@@ -224,7 +224,25 @@ const Lend = () => {
           onChange={handleInputChange}
           required
           placeholder=" example: small, medium, large, x-large"
-        />
+        /> */}
+        <div>
+          <label htmlFor="size">Size:</label>
+          <select
+            id="size"
+            name="size"
+            value={post.size}
+            onChange={handleInputChange}
+            required
+          >
+            <option value="">-- Select Size --</option>
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XLL">XLL</option>
+          </select>
+        </div>
         <label htmlFor="location">Location:</label>
         <input
           type="text"

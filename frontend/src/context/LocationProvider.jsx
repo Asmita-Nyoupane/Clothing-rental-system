@@ -7,7 +7,7 @@ const LocationProvider = ({ children }) => {
   const [userLocation, setUserLocation] = useState(null);
   const [viewNearbyPosts, setViewNearbyPosts] = useState(false);
 
-  const [nearby, setNearby] = useState("Nearby Options");
+  const [nearby, setNearby] = useState("NearBy");
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -48,9 +48,7 @@ const LocationProvider = ({ children }) => {
   const toggleViewNearbyPosts = () => {
     setViewNearbyPosts((prev) => !prev);
     // toggel the inner text of button
-    setNearby((prevNearby) =>
-      prevNearby === "Nearby Options" ? "Explore All" : "Nearby Options"
-    );
+    setNearby((prevNearby) => (prevNearby === "NearBy" ? "Explore" : "NearBy"));
   };
   useEffect(() => {
     console.log("nearer post:", viewNearbyPosts);

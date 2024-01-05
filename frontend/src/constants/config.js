@@ -40,6 +40,8 @@ export const SERVICE_URL = {
   deletePost: { url: "delete", method: "DELETE", query: true },
 
   getNearbyPosts: { url: "/near/posts", method: "GET", params: true },
+  SearchKeyword: { url: "/search", method: "GET", query: true },
+  filterPost: { url: "/filter", method: "GET", params: true },
 
   newComment: { url: "/comment/new", method: "POST" },
   getAllComments: { url: "comments", method: "GET", query: true },
@@ -49,6 +51,4 @@ export const SERVICE_URL = {
   searchUser: { url: "/searchUser", method: "GET", params: true },
   sendMessage: { url: "/message", method: "POST" },
   allMessage: { url: "/message/", method: "GET", params: true },
-
-  SearchKeyword: { url: "/search", method: "GET", query: true },
 };

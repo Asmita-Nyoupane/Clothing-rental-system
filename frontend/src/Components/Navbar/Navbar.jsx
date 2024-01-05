@@ -4,11 +4,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Search from "../Search/Search";
 import logo from "../../assets/logo.png";
+import { useLocation } from "../../context/LocationProvider";
 import "./Navbar.css";
+import { Container, Table, Button } from "react-bootstrap";
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(true);
-
+  const { toggleViewNearbyPosts, nearby } = useLocation();
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
@@ -30,6 +32,9 @@ const Navbar = () => {
         <Link to="/lend">Lend</Link>
         <Link to="/rent">Rent</Link>
         <Link to="/login">Login</Link>
+        <a style={{ color: "white" }} onClick={toggleViewNearbyPosts}>
+          {nearby}
+        </a>
       </div>
       <div className="search">
         <Search />

@@ -9,37 +9,58 @@ const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [searchParams] = useSearchParams();
   const category = searchParams.get("category");
-
+  const gender = searchParams.get("gender");
+  const maxRentPrice = searchParams.get("maxRentPrice");
+  const size = searchParams.get("size");
   const { userLocation, viewNearbyPosts } = useLocation();
   useEffect(() => {
-    let response;
     const fetchData = async () => {
-      if (
-        viewNearbyPosts &&
-        userLocation &&
-        userLocation.latitude &&
-        userLocation.longitude
-      ) {
-        response = await API.getNearbyPosts({
-          category: category || "",
-          latitude: userLocation.latitude,
-          longitude: userLocation.longitude,
-        });
-      } else {
-        response = await API.getAllPosts({ category: category || "" });
-      }
-      if (response.isSuccess) {
-        setPosts(response.data);
+      try {
+        let response;
+        if (
+          viewNearbyPosts &&
+          userLocation &&
+          userLocation.latitude &&
+          userLocation.longitude
+        ) {
+          response = await API.getNearbyPosts({
+            category: category || "",
+            maxRentPrice: maxRentPrice || "",
+            size: size || "",
+            gender: gender || "",
+            latitude: userLocation.latitude,
+            longitude: userLocation.longitude,
+          });
+        } else {
+          console.log("maxrent price");
+          response = await API.filterPost({
+            category: category || "",
+            maxRentPrice: maxRentPrice || "",
+            size: size || "",
+            gender: gender || "",
+          });
+          console.log("response in filter", response);
+          // response = response.data;
+          console.log("2nd response", response);
+        }
+        if (response.isSuccess) {
+          setPosts(response.data);
+        } else {
+          console.log("No data property in response");
+          setPosts([]);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     };
     fetchData();
-  }, [category, userLocation, viewNearbyPosts]);
+  }, [category, userLocation, viewNearbyPosts, maxRentPrice, size, gender]);
 
-  //
   return (
     <>
       <div className="card-container">
-        {posts?.length ? (
+        {console.log("Post length", posts.length)}
+        {posts.length ? (
           posts.map((post) => (
             <div key={post._id} className="card">
               <Link to={`details/${post._id}`}>
@@ -50,12 +71,13 @@ const Posts = () => {
         ) : (
           <div
             style={{
+              alignContent: "center",
               backgroundColor: "lightgrey",
               margin: "30px 80px",
               fontSize: "15px",
             }}
           >
-            No data available to display
+            {posts.length === 0 ? "No data available to display" : "Loading..."}
           </div>
         )}
       </div>

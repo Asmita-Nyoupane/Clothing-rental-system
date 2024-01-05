@@ -32,7 +32,7 @@ function Search() {
         />
       </Col>
       <Col xs="auto">
-        <Button type="submit" onClick={handleSubmit}>
+        <Button variant="info" type="submit" onClick={handleSubmit}>
           Search
         </Button>
       </Col>

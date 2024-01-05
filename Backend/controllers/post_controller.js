@@ -104,7 +104,8 @@ const deletePost = async (req, res) => {
 // get all the items nearer to the user's current location
 const getNearByPosts = async (req, res) => {
   try {
-    const { latitude, longitude } = req.query;
+    const { latitude, longitude, category, maxRentPrice, size, gender } =
+      req.query;
     console.log("current user location inn backend", latitude, longitude);
 
     if (!latitude || !longitude) {
@@ -112,6 +113,13 @@ const getNearByPosts = async (req, res) => {
         .status(400)
         .json({ msg: "Latitude and longitude are required" });
     }
+    // Define the conditions for your filters
+    const conditions = {};
+    if (category) conditions.category = category;
+    if (maxRentPrice)
+      conditions["rentPrice"] = { $lte: parseFloat(maxRentPrice) };
+    if (size) conditions.size = size;
+    if (gender) conditions.gender = gender;
 
     const radius = 8; // radius
     const maxDistance = radius * 1000; // Convert radius to meters
@@ -128,8 +136,12 @@ const getNearByPosts = async (req, res) => {
           spherical: true,
         },
       },
+      {
+        $match: conditions, // Apply the filters
+      },
     ]);
     console.log("Nearer clothes my place", nearbyPosts);
+
     return res.status(200).json(nearbyPosts);
   } catch (error) {
     console.error("Error in getNearByPosts:", error);
@@ -153,6 +165,37 @@ const searchItem = async (req, res) => {
   }
 };
 
+// controller  for filter the post based on gender, price and size
+const filterPost = async (req, res) => {
+  try {
+    const { maxRentPrice, size, gender, category } = req.query;
+    const filter = {};
+    if (maxRentPrice) {
+      filter.rentPrice = { $lte: parseInt(maxRentPrice) };
+    }
+
+    if (size) {
+      filter.size = size;
+    }
+    if (gender) {
+      filter.gender = gender;
+    }
+    if (category) {
+      filter.category = category;
+    }
+    // Check if the filter object is not empty
+    const hasFilter = Object.keys(filter).length > 0;
+
+    const result = hasFilter ? await Post.find(filter) : await Post.find();
+
+    // const result = await Post.find(filter);
+
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
+
 module.exports = {
   createPost,
   getAllPosts,
@@ -161,4 +204,5 @@ module.exports = {
   deletePost,
   getNearByPosts,
   searchItem,
+  filterPost,
 };
