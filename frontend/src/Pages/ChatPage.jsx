@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import styled from "styled-components";
-import { SideDrawer } from "../src/Components/Miscellaneous/SideDrawer";
-import { DataContext } from "../src/context/DataProvider";
-import Contacts from "../src/Components/Details/ChatComponent/Contacts";
-import { API } from "../src/service/api";
-import ChatContainer from "../src/Components/Details/ChatComponent/ChatContainer";
+import { SideDrawer } from "../Components/Miscellaneous/SideDrawer";
+import { DataContext } from "../context/DataProvider";
+import Contacts from "../Components/Details/ChatComponent/Contacts";
+import { API } from "../service/api";
+import ChatContainer from "../Components/Details/ChatComponent/ChatContainer";
 import { io } from "socket.io-client";
 const Chatpage = () => {
   const socket = useRef();

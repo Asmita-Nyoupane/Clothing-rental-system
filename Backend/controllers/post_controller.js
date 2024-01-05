@@ -196,6 +196,130 @@ const filterPost = async (req, res) => {
   }
 };
 
+// const rating = async (req, res) => {
+//   try {
+//     const { _id } = req.user;
+//     const { star, postId } = req.body;
+//     const post = await Post.findById(postId);
+//     let alreadyRated = post.ratings.find(
+//       (userId) => userId.postedBy.toString() === _id.toString()
+//     );
+
+//     if (alreadyRated) {
+//       // Update the existing rating
+//       const updateRating = await Post.updateOne(
+//         {
+//           _id: postId,
+//           "ratings.postedBy": _id,
+//         },
+//         {
+//           $set: { "ratings.$.star": star },
+//         },
+//         {
+//           new: true,
+//         }
+//       );
+//     } else {
+//       // Add a new rating
+//       const ratePost = await Post.findByIdAndUpdate(
+//         postId,
+//         {
+//           $push: {
+//             ratings: {
+//               star: star,
+//               postedBy: _id,
+//             },
+//           },
+//         },
+//         {
+//           new: true,
+//         }
+//       );
+//     }
+//     const getAllRating = await Post.findById(postId);
+//     let totalRating= getAllRating.ratings.length;
+//     let ratingSum: getAllRating.ratings.map((post)=>post.star).reduce((prev, curr)=>(prev+curr))
+// let actualRating= Math.round(ratingSum/totalRating)
+//     res.json({ msg: "Rating updated successfully" });
+//     let finalRatedPost = await Post.findByIdAndUpdate(postId,{
+//       totalRating:actualRating,
+//     },{
+//       new:true
+//     }
+//     )
+//   } catch (error) {
+//     return res.status(500).json(finalRatedPost );
+//   }
+// };
+const rating = async (req, res) => {
+  try {
+    const { _id } = req.user;
+    const { star, postId } = req.body;
+
+    // Update or add the rating
+    let post = await Post.findById(postId);
+    let alreadyRated = post.ratings.find(
+      (userId) => userId.postedBy.toString() === _id.toString()
+    );
+
+    if (alreadyRated) {
+      // update the existing rating
+      await Post.updateOne(
+        {
+          _id: postId,
+          "ratings.postedBy": _id,
+        },
+        {
+          $set: { "ratings.$.star": star },
+        },
+        {
+          new: true,
+        }
+      );
+    } else {
+      // add a new rating
+      await Post.findByIdAndUpdate(
+        postId,
+        {
+          $push: {
+            ratings: {
+              star: star,
+              postedBy: _id,
+            },
+          },
+        },
+        {
+          new: true,
+        }
+      );
+    }
+
+    // recalculate average rating
+    const updatedPost = await Post.findById(postId);
+    const totalRating = updatedPost.ratings.length;
+    const ratingSum = updatedPost.ratings.reduce(
+      (acc, rating) => acc + rating.star,
+      0
+    );
+    const actualRating = ratingSum / totalRating;
+
+    // update totalRating in the post
+    const finalRatedPost = await Post.findByIdAndUpdate(
+      postId,
+      {
+        totalRating: actualRating,
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.json({ msg: "Rating updated successfully", finalRatedPost });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
+
 module.exports = {
   createPost,
   getAllPosts,
@@ -205,4 +329,5 @@ module.exports = {
   getNearByPosts,
   searchItem,
   filterPost,
+  rating,
 };

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { SearchContext } from "../../frontend/src/context/SearchProvider";
+import { SearchContext } from "../context/SearchProvider";
 import { Link } from "react-router-dom";
-import { Post } from "../src/Components/Rent/Post/Post";
+import { Post } from "../Components/Rent/Post/Post";
 const SearchResult = () => {
   const { result } = useContext(SearchContext);
   return (

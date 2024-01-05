@@ -12,8 +12,8 @@ import About from "./Components/About";
 import Details from "./Components/Details/Details";
 import Update from "./Components/Update/Update";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
-import Chatpage from "../Pages/ChatPage";
-import SearchResult from "../Pages/SearchResult";
+import Chatpage from "./Pages/ChatPage";
+import SearchResult from "./Pages/SearchResult";
 
 const App = () => {
   return (

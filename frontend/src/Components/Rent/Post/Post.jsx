@@ -1,4 +1,6 @@
 import React from "react";
+
+import Rating from "../../Details/Rating/rating";
 export const Post = ({ post }) => {
   return (
     <>
@@ -13,6 +15,9 @@ export const Post = ({ post }) => {
         }}
       >
         Rs {post.rentPrice}
+      </h4>
+      <h4>
+        <Rating stars={post.totalRating} />
       </h4>
       {/* <h4
         className="Type"

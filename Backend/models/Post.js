@@ -47,6 +47,16 @@ const postSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    ratings: [
+      {
+        star: Number,
+        postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      },
+    ],
+    totalRating: {
+      type: String,
+      default: 0,
+    },
     location: {
       type: {
         type: String,

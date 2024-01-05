@@ -42,6 +42,7 @@ export const SERVICE_URL = {
   getNearbyPosts: { url: "/near/posts", method: "GET", params: true },
   SearchKeyword: { url: "/search", method: "GET", query: true },
   filterPost: { url: "/filter", method: "GET", params: true },
+  ratePost: { url: "/rate", method: "POST" },
 
   newComment: { url: "/comment/new", method: "POST" },
   getAllComments: { url: "comments", method: "GET", query: true },

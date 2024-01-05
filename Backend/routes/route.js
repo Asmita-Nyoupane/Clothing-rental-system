@@ -17,6 +17,7 @@ const {
   getNearByPosts,
   searchItem,
   filterPost,
+  rating,
 } = require("../controllers/post_controller");
 const {
   newComment,
@@ -65,7 +66,7 @@ router.get("/search/:keyword", searchItem);
 
 // routes for filter the post
 router.get("/filter", filterPost);
-
+router.post("/rate", authenticateToken, rating);
 // routes for comments
 router.post("/comment/new", authenticateToken, newComment);
 router.get("/comments/:id", authenticateToken, getComments);

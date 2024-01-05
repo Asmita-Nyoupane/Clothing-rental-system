@@ -5,6 +5,8 @@ import { DataContext } from "../../context/DataProvider";
 import { Row, Col, Card, Nav } from "react-bootstrap";
 import LocationMap from "./LocationMap";
 import Comments from "./Comments/Comments";
+import RatePost from "./Rating/RatePost";
+import Rating from "./Rating/rating";
 
 const Details = () => {
   const [post, setPost] = useState({});
@@ -79,6 +81,11 @@ const Details = () => {
       console.error("Error deleting post:", error);
     }
   };
+  // // after rating complete handleRatingComplete called which display the updated rating
+  const handleRatingComplete = (update) => {
+    // setUserRating(updatedPost.totalRating);
+    console.log("update the rating", update.totalRating);
+  };
 
   return (
     <div
@@ -113,6 +120,8 @@ const Details = () => {
               Chat Now
             </button>
           </Link>
+          <RatePost PostId={id} onRatingComplete={handleRatingComplete} />
+          {/* <Rating stars={post.totalRating} /> */}
         </Col>
 
         {/* Column for the details */}
