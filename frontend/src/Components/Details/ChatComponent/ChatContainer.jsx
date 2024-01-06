@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import Image from "react-bootstrap/Image";
 import styled from "styled-components";
 import { DataContext } from "../../../context/DataProvider";
 import ChatInput from "./ChatInput";
@@ -95,16 +96,38 @@ const ChatContainer = ({ socket }) => {
     <>
       {chats && (
         <Container>
-          <div className="chat-headers">
+          {/* <div className="chat-headers">
             <div className="user-details">
-              <div className="image">
-                <img src={chats.image} alt="profile picture" />
-              </div>
+              <Image
+                style={{ height: "30px", width: "300px" }}
+                src={chats.image}
+                roundedCircle
+              />
               <div className="username">
                 <h4>{chats.name}</h4>
               </div>
             </div>
-          </div>
+          </div> */}
+          <span className="chat-headers">
+            <span className="user-details">
+              <Image
+                style={{ height: "50px", width: "50px" }}
+                src={chats.image}
+                roundedCircle
+              />
+              <div
+                style={{
+                  textTransform: "capitalize",
+                  color: "white",
+                  fontSize: "20px",
+                }}
+                className="username"
+              >
+                {chats.name}
+              </div>
+            </span>
+          </span>
+
           <div className="chat-messages">
             {messages.map((message) => {
               return (
@@ -138,25 +161,27 @@ const Container = styled.div`
     grid-template-rows: 15% 70% 15%;
   }
   .chat-header {
-    display: flex;
+    /* display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
+    left: 0;
     padding: 0 2rem;
-    .user-details {
+    position: absolute;
+    margin-top: 2px; */
+    /* .user-details {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      .image {
+      gap: 1rem; */
+    /* .image {
         img {
           height: 1rem;
         }
-      }
-      .username {
-        h4 {
-          color: white;
-        }
-      }
-    }
+      } */
+    /* .username {
+      color: white;
+      top: 50px;
+    } */
+    /* } */
   }
   .chat-messages {
     padding: 1rem 2rem;

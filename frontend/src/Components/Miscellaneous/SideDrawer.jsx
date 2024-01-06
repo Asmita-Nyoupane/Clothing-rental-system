@@ -90,13 +90,16 @@ export const SideDrawer = ({ contacts, changeChat }) => {
         {/* { <span style={{padding:"4px", textAlign:"left" }}>
       Search User
       </span> } */}
-        <span>
+        <span style={{ fontSize: "20px", fontFamily: "cursive" }}>
+          Chat with your Lender
+        </span>
+        {/* <span>
           <i
             className="fa fa-bell"
             aria-hidden="true"
             style={{ right: "140px", position: "absolute" }}
           ></i>
-        </span>
+        </span> */}
 
         <Dropdown>
           <Dropdown.Toggle variant="secondary" id="dropdown-basic">

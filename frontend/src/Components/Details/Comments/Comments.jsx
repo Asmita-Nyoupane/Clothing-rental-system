@@ -113,7 +113,7 @@ const Comments = ({ post }) => {
           <Button
             variant="primary"
             size="md"
-            style={{ height: 40 }}
+            style={{ height: 40, alignItems: "center", marginTop: "5px" }}
             onClick={(e) => addComment(e)}
             // disabled={!account.name}
           >

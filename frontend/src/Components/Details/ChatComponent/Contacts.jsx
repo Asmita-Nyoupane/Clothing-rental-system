@@ -64,7 +64,7 @@ const UserImage = styled.img`
 const UserName = styled.h3`
   margin-top: 0.5rem;
   font-size: 1rem;
-
+  text-transform: capitalize;
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     font-size: 0.9rem;
   }
