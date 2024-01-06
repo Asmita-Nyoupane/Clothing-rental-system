@@ -14,6 +14,7 @@ import Update from "./Components/Update/Update";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Chatpage from "./Pages/ChatPage";
 import SearchResult from "./Pages/SearchResult";
+import Profile from "./Components/MyProfile/profile";
 
 const App = () => {
   return (
@@ -46,6 +47,14 @@ const App = () => {
             <Route path="/about" element={<About />} />
             <Route path="/searchResult" element={<SearchResult />} />
             <Route path="/chatPage" element={<Chatpage />} />
+            <Route
+              path="/profile/:userId"
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
           </Routes>
         </DataProvider>
       </BrowserRouter>

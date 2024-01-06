@@ -57,4 +57,6 @@ export const SERVICE_URL = {
 
   addLike: { url: "/like", method: "POST" },
   removeLike: { url: "/unlike", method: "POST" },
+
+  userProfile: { url: "/profile", method: "POST" },
 };

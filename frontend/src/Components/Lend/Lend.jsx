@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { Row, Col, Form } from "react-bootstrap";
 import { DataContext } from "../../context/DataProvider";
 import { useNavigate } from "react-router-dom";
 import "./Lend.css";

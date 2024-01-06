@@ -284,6 +284,20 @@ const toggleAvailability = async (req, res) => {
     return res.status(500).json({ msg: error.message });
   }
 };
+const useProfile = async (req, res) => {
+  const userId = req.body.userId;
+  // console.log("response in profile".req.body);
+  // console.log("userId", userId);
+  try {
+    const userPosts = await Post.find({ userId });
+    if (!userPosts) {
+      return res.status(400).json({ msg: "Post not found" });
+    }
+    return res.status(200).json(userPosts);
+  } catch (error) {
+    return res.status(404).json({ message: "User not found" });
+  }
+};
 
 module.exports = {
   createPost,
@@ -296,4 +310,5 @@ module.exports = {
   filterPost,
   rating,
   toggleAvailability,
+  useProfile,
 };

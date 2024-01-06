@@ -18,7 +18,6 @@ const Rent = () => {
           xs={12}
           // style={{ height: "100vh", overflowY: " auto" }}
         >
-          {" "}
           <FilterByGender />
           <Categories />
           <FilterByPrice />

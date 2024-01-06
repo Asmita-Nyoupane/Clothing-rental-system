@@ -100,6 +100,10 @@ const Details = () => {
     // setUserRating(updatedPost.totalRating);
     console.log("update the rating", update.totalRating);
   };
+  const handleProfile = () => {
+    console.log("profile picture clicked");
+    navigate(`/profile/${post.userId}`);
+  };
 
   return (
     <div
@@ -116,6 +120,7 @@ const Details = () => {
 
           <div className="d-flex justify-content-evenly mt-2">
             <Image
+              onClick={handleProfile}
               src={post.profilePic}
               roundedCircle
               style={{ height: "50px", width: "50px" }}

@@ -21,6 +21,7 @@ const {
   filterPost,
   rating,
   toggleAvailability,
+  useProfile,
 } = require("../controllers/post_controller");
 const {
   newComment,
@@ -83,5 +84,7 @@ router.get("/message/", authenticateToken, allMessage);
 
 // route to toggel the availibity of clothes for rent
 router.patch("/available", authenticateToken, toggleAvailability);
+
+router.post("/profile", authenticateToken, useProfile);
 
 module.exports = router;
