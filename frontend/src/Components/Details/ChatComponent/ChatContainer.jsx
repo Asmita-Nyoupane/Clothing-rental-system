@@ -6,6 +6,7 @@ import { API } from "../../../service/api";
 import { v4 as uuidv4 } from "uuid";
 
 const ChatContainer = ({ socket }) => {
+  const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const scrollRef = useRef();
@@ -14,15 +15,18 @@ const ChatContainer = ({ socket }) => {
   useEffect(() => {
     const fetchData = async () => {
       console.log("chat id", account._id, chats._id);
-      try {
-        const response = await API.allMessage({
-          from: account._id,
-          to: chats._id,
-        });
-        console.log("2nd time chat id", response.data);
-        setMessages(response.data);
-      } catch (err) {
-        console.log("Error while fetching the messages", err);
+
+      if (chats) {
+        try {
+          const response = await API.allMessage({
+            from: account._id,
+            to: chats._id,
+          });
+          console.log("2nd time chat id", response.data);
+          setMessages(response.data);
+        } catch (err) {
+          console.log("Error while fetching the messages", err);
+        }
       }
     };
 
@@ -30,22 +34,27 @@ const ChatContainer = ({ socket }) => {
   }, [chats]);
 
   const handleSendMsg = async (msg) => {
-    socket.current.emit("send-msg", {
+    const messaageObj = {
       to: chats._id,
       from: account._id,
       message: msg,
-    });
-    await API.sendMessage({
-      from: account._id,
-      to: chats._id,
-      message: msg,
-    });
+    };
+    socket.current.emit("send-msg", messaageObj);
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { fromSelf: true, message: msg },
+    ]);
+    try {
+      await API.sendMessage(messaageObj);
+    } catch (error) {
+      console.log("Error while sending the message", error);
+    }
 
     const msgs = [...messages];
     msgs.push({ fromSelf: true, message: msg });
     setMessages(msgs);
   };
-  // useEffect(() => {
+
   //   const socketEventCallback = (msg) => {
   //     setArrivalMessage({ fromSelf: false, message: msg });
   //   };
@@ -77,6 +86,7 @@ const ChatContainer = ({ socket }) => {
   useEffect(() => {
     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage]);
+
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
   }, [messages]);
@@ -112,6 +122,7 @@ const ChatContainer = ({ socket }) => {
               );
             })}
           </div>
+          {loading && <p>Sending message...</p>}
           <ChatInput handleSendMsg={handleSendMsg} />
         </Container>
       )}

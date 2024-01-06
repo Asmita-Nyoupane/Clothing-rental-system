@@ -44,6 +44,8 @@ export const SERVICE_URL = {
   filterPost: { url: "/filter", method: "GET", params: true },
   ratePost: { url: "/rate", method: "POST" },
 
+  toggleAvailability: { url: "/available", method: "PATCH" },
+
   newComment: { url: "/comment/new", method: "POST" },
   getAllComments: { url: "comments", method: "GET", query: true },
   deleteComment: { url: "comment/delete", method: "DELETE", query: true },
@@ -52,4 +54,7 @@ export const SERVICE_URL = {
   searchUser: { url: "/searchUser", method: "GET", params: true },
   sendMessage: { url: "/message", method: "POST" },
   allMessage: { url: "/message/", method: "GET", params: true },
+
+  addLike: { url: "/like", method: "POST" },
+  removeLike: { url: "/unlike", method: "POST" },
 };

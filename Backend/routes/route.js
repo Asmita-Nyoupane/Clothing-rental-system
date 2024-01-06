@@ -55,8 +55,8 @@ router.get("/searchUser", authenticateToken, allUsers);
 // routes for get all user
 router.get("/getAllUser/:id", authenticateToken, getAllUser);
 // route for add and remove likes
-router.post("/like/:userId/:postId", authenticateToken, addLike);
-router.post("/unlike/:userId/:postId", authenticateToken, removeLike);
+router.post("/like", authenticateToken, addLike);
+router.post("/unlike", authenticateToken, removeLike);
 // routes for CRUD the post
 router.post("/create", authenticateToken, createPost);
 router.get("/posts", getAllPosts);
@@ -82,6 +82,6 @@ router.post("/message", authenticateToken, sendMessage);
 router.get("/message/", authenticateToken, allMessage);
 
 // route to toggel the availibity of clothes for rent
-router.patch("/available/:id", toggleAvailability);
+router.patch("/available", authenticateToken, toggleAvailability);
 
 module.exports = router;

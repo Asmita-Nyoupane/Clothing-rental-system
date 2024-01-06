@@ -13,12 +13,19 @@ const axiosInstance = axios.create({
 });
 axiosInstance.interceptors.request.use(
   function (config) {
+    // if (config.TYPE.params) {
+    //   config.params = config.TYPE.params;
+    // } else if (config.TYPE.query) {
+    //   config.url = config.url + "/" + config.TYPE.query;
+    // }
     if (config.TYPE.params) {
       config.params = config.TYPE.params;
     } else if (config.TYPE.query) {
-      config.url = config.url + "/" + config.TYPE.query;
+      const queryParams = Array.isArray(config.TYPE.query)
+        ? config.TYPE.query.join("/")
+        : config.TYPE.query;
+      config.url = config.url + "/" + queryParams;
     }
-
     return config;
   },
   function (error) {

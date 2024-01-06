@@ -265,15 +265,11 @@ const rating = async (req, res) => {
   }
 };
 const toggleAvailability = async (req, res) => {
-  console.log("Params:", req.params);
-  console.log("Body:", req.body);
-  console.log("Headers:", req.headers);
-
   try {
-    // console.log("Request:", req);
-    const postId = req.params.id;
+    // console.log("Request:", req);d
+    const postId = req.body.id;
     console.log("postId:", postId);
-    const result = await Post.findById(req.params.id);
+    const result = await Post.findById(postId);
     // console.log(result);
     if (result) {
       result.isAvailable = !result.isAvailable;

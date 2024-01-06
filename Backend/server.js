@@ -22,7 +22,7 @@ connectToMongo()
         console.log(`Server listening on port http://localhost:${PORT}`);
       });
       const io = socket(server, {
-        pingTimeout: 60000,
+        // pingTimeout: 60000,
         cors: {
           origin: "http://localhost:5173",
           credentials: true,
@@ -30,17 +30,22 @@ connectToMongo()
       });
       global.onlineUsers = new Map();
       io.on("connection", (socket) => {
-        console.log("socket established");
+        // console.log("socket established");
         global.chatSocket = socket;
         console.log("connected to socket.io");
         socket.on("add-user", (userId) => {
           onlineUsers.set(userId, socket.id);
         });
         socket.on("send-msg", (data) => {
-          console.log("message", data.message);
+          console.log("Recieved message", data.message);
           const sendUserSocket = onlineUsers.get(data.to);
+
           if (sendUserSocket) {
-            socket.to(sendUserSocket).emit("msg-recieved", data.message);
+            try {
+              socket.to(sendUserSocket).emit("msg-recieved", data.message);
+            } catch (error) {
+              console.error("Error while sending the message", error);
+            }
           }
         });
       });

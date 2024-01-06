@@ -1,7 +1,8 @@
-import React from "react";
-
+import React, { useContext } from "react";
+import { DataContext } from "../../../context/DataProvider";
 import Rating from "../../Details/Rating/rating";
 export const Post = ({ post }) => {
+  const { account } = useContext(DataContext);
   return (
     <>
       <img className="image" src={post.image} alt="post" />

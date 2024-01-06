@@ -5,7 +5,6 @@ const User = require("../models/User");
 const Token = require("../models/Token");
 
 const signupUser = async (req, res) => {
-  console.log("signup", req.body);
   const { name, email, phone, password, image } = req.body;
   try {
     const salt = await bcrypt.genSalt(15);
@@ -102,8 +101,10 @@ const getAllUser = async (req, res) => {
 };
 
 const addLike = async (req, res) => {
-  const userId = req.params.userId;
-  const postId = req.params.postId;
+  const userId = req.body.userId;
+  const postId = req.body.postId;
+  console.log("userid", userId);
+  console.log("postid", postId);
   // find user and update the likes
   try {
     const user = await User.findByIdAndUpdate(
@@ -121,8 +122,8 @@ const addLike = async (req, res) => {
   }
 };
 const removeLike = async (req, res) => {
-  const userId = req.params.userId;
-  const postId = req.params.postId;
+  const userId = req.body.userId;
+  const postId = req.body.postId;
   // find user and update the likes
   try {
     const user = await User.findByIdAndUpdate(

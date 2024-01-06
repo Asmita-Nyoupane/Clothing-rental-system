@@ -181,9 +181,12 @@ const Update = () => {
 
   return (
     <>
-      <div style={{ 
-        // backgroundColor: "#ffe6e6",
-       marginTop: "-10px" }}>
+      <div
+        style={{
+          // backgroundColor: "#ffe6e6",
+          marginTop: "-10px",
+        }}
+      >
         <h1>Update Product</h1>
         <form>
           <div>

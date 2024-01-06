@@ -10,7 +10,6 @@ import FilterBySize from "./Filter/Size";
 const Rent = () => {
   return (
     <div className="rent-container">
-      <FilterByGender />
       <Row className="rent-row">
         {/* Categories column takes 3 columns on large screens, 4 columns on medium screens, and 12 columns on small screens */}
         <Col
@@ -19,6 +18,8 @@ const Rent = () => {
           xs={12}
           // style={{ height: "100vh", overflowY: " auto" }}
         >
+          {" "}
+          <FilterByGender />
           <Categories />
           <FilterByPrice />
           <FilterBySize />

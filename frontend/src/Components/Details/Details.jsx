@@ -1,14 +1,22 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import ListGroup from "react-bootstrap/ListGroup";
 import { API } from "../../service/api";
 import { DataContext } from "../../context/DataProvider";
 import { Row, Col, Card, Nav } from "react-bootstrap";
 import LocationMap from "./LocationMap";
 import Comments from "./Comments/Comments";
 import RatePost from "./Rating/RatePost";
+import Image from "react-bootstrap/Image";
+import Availability from "./Availability";
 import Rating from "./Rating/rating";
+import LikePost from "./Like/LikePost";
 
 const Details = () => {
+  const token = sessionStorage.getItem("accesstoken");
+  if (!token) {
+    console.log("Token is missing", token);
+  } else console.log("Token", token);
   const [post, setPost] = useState({});
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
@@ -32,9 +40,15 @@ const Details = () => {
     };
     fetchData();
   }, [id]);
+  useEffect(() => {
+    if (!token) {
+      console.log("Token is missing", token);
+      navigate("/login");
+    }
+  }, [token, navigate]);
   // console.log("Post Info", post);
   const initiateChat = async () => {
-    if (!account) {
+    if (!account && !token) {
       console.error("User not authenticated. Cannot initiate chat.");
       navigate("/login");
     }
@@ -95,32 +109,51 @@ const Details = () => {
       <Row>
         {/* Column for the image */}
         <Col xs={12} md={6} className="mb-3">
-          <img src={post.image} alt="post" style={{ height: "400px" }} />
-          <h4 className="name">Name: {post.name}</h4>
-          <h5 className="Date" style={{ right: "30px" }}>
-            Date: {new Date(post.createdDate).toDateString()}
-            {console.log("acountName", account)}
-          </h5>
+          <div style={{ position: "relative" }}>
+            <Availability postOwner={post.userId} style={{}} />
+            <img src={post.image} alt="post" style={{ height: "400px" }} />
+          </div>
 
-          <Link to="/chatPage">
-            <button
-              className="chat"
-              onClick={initiateChat}
-              style={{
-                marginRight: "10px",
-                margin: "5px",
-                padding: "6px 15px",
-                border: "1px solid #878787",
-                borderRadius: "10px",
-                backgroundColor: "rgba(0, 0, 255, 0.589)",
-                color: "#fff",
-              }}
-              // disabled={!account || !account._id}
-            >
-              Chat Now
-            </button>
-          </Link>
-          <RatePost PostId={id} onRatingComplete={handleRatingComplete} />
+          <div className="d-flex justify-content-evenly mt-2">
+            <Image
+              src={post.profilePic}
+              roundedCircle
+              style={{ height: "50px", width: "50px" }}
+            />
+            {account && token && <LikePost />}
+            {
+              <Link to="/chatPage">
+                <button
+                  className="chat"
+                  onClick={initiateChat}
+                  style={{
+                    padding: "6px 15px",
+                    border: "1px solid #878787",
+                    borderRadius: "10px",
+                    backgroundColor: "rgba(0, 0, 255, 0.589)",
+                    color: "#fff",
+                  }}
+                  // disabled={!account || !account._id}
+                >
+                  Chat Now
+                </button>
+              </Link>
+            }
+            <span className="Date" style={{ fontSize: "14px" }}>
+              {new Date(post.createdDate).toDateString()}
+              {/* {console.log("acountName", account)} */}
+            </span>
+          </div>
+          <span
+            className="name"
+            style={{ marginLeft: "-390px", fontSize: "14px" }}
+          >
+            {post.name}
+          </span>
+
+          {token && account && (
+            <RatePost PostId={id} onRatingComplete={handleRatingComplete} />
+          )}
           {/* <Rating stars={post.totalRating} /> */}
         </Col>
 
@@ -148,44 +181,24 @@ const Details = () => {
             <Card.Body>
               {activeTab === "details" && (
                 <>
-                  <h2
-                    className="category"
-                    style={{ color: "black", fontSize: "20px" }}
+                  <div
+                    className="container"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "baseline",
+                      maxWidth: "400px",
+                      // fontSize: "1rem",
+                      textTransform: "capitalize",
+                    }}
                   >
-                    Category: {post.category}{" "}
-                  </h2>
-                  <h2
-                    className="type"
-                    style={{ color: "black", fontSize: "20px" }}
-                  >
-                    Type: {post.type}
-                  </h2>
-                  <h2
-                    className="Price"
-                    style={{ color: "black", fontSize: "20px" }}
-                  >
-                    Price: {post.rentPrice}
-                  </h2>
-
-                  <h2
-                    className="Gender"
-                    style={{ color: "black", fontSize: "20px" }}
-                  >
-                    Gender: {post.gender}
-                  </h2>
-                  <h2
-                    className="Size"
-                    style={{ color: "black", fontSize: "20px" }}
-                  >
-                    Size: {post.size}
-                  </h2>
-
-                  <h2
-                    className="Description"
-                    style={{ color: "black", fontSize: "20px" }}
-                  >
-                    Description: {post.description}
-                  </h2>
+                    <h6>Category: {post.category} </h6>
+                    <h6>Type: {post.type}</h6>
+                    <h6>Price: {post.rentPrice}</h6>
+                    <h6>Gender: {post.gender}</h6>
+                    <h6>Size: {post.size}</h6>
+                    <h6>Description: {post.description}</h6>
+                  </div>
                   <br />
                   {console.log("account.name", account.name)}
                   {console.log("Post.name", post.name)}

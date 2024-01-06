@@ -52,6 +52,9 @@ const Chatpage = () => {
       socket.current = io(host);
 
       socket.current.emit("add-user", account._id);
+      // return () => {
+      //   socket.current.disconnect();
+      // };
     }
   }, [account]);
 
