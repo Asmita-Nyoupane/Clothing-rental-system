@@ -5,6 +5,7 @@ const User = require("../models/User");
 const Token = require("../models/Token");
 
 const signupUser = async (req, res) => {
+  console.log("signup", req.body);
   const { name, email, phone, password, image } = req.body;
   try {
     const salt = await bcrypt.genSalt(15);
@@ -15,7 +16,7 @@ const signupUser = async (req, res) => {
       phone: phone,
       password: hashedPassword,
       image: image,
-      role,
+      // role: role,
     };
     const newUser = new User(user);
     await newUser.save();
@@ -100,4 +101,50 @@ const getAllUser = async (req, res) => {
   }
 };
 
-module.exports = { signupUser, loginUser, allUsers, getAllUser };
+const addLike = async (req, res) => {
+  const userId = req.params.userId;
+  const postId = req.params.postId;
+  // find user and update the likes
+  try {
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { $addToSet: { likedItems: postId } }, // $addToSet adds the specified item to the array if it's not already present
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json({ msg: "Unable to add likes", error });
+  }
+};
+const removeLike = async (req, res) => {
+  const userId = req.params.userId;
+  const postId = req.params.postId;
+  // find user and update the likes
+  try {
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { likedItems: postId } }, // $pull removes the post from array of likeditems
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json({ msg: "Unable to add likes", error });
+  }
+};
+
+module.exports = {
+  signupUser,
+  loginUser,
+  allUsers,
+  getAllUser,
+  addLike,
+  removeLike,
+};

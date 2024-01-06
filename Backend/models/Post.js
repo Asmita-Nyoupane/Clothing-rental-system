@@ -68,6 +68,10 @@ const postSchema = mongoose.Schema(
         required: true,
       },
     },
+    isAvailable: {
+      type: Boolean,
+      default: true, // Set default availability to true
+    },
     createdDate: {
       type: Date,
       default: Date.now,

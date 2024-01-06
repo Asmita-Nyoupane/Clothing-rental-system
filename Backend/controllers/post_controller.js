@@ -196,61 +196,6 @@ const filterPost = async (req, res) => {
   }
 };
 
-// const rating = async (req, res) => {
-//   try {
-//     const { _id } = req.user;
-//     const { star, postId } = req.body;
-//     const post = await Post.findById(postId);
-//     let alreadyRated = post.ratings.find(
-//       (userId) => userId.postedBy.toString() === _id.toString()
-//     );
-
-//     if (alreadyRated) {
-//       // Update the existing rating
-//       const updateRating = await Post.updateOne(
-//         {
-//           _id: postId,
-//           "ratings.postedBy": _id,
-//         },
-//         {
-//           $set: { "ratings.$.star": star },
-//         },
-//         {
-//           new: true,
-//         }
-//       );
-//     } else {
-//       // Add a new rating
-//       const ratePost = await Post.findByIdAndUpdate(
-//         postId,
-//         {
-//           $push: {
-//             ratings: {
-//               star: star,
-//               postedBy: _id,
-//             },
-//           },
-//         },
-//         {
-//           new: true,
-//         }
-//       );
-//     }
-//     const getAllRating = await Post.findById(postId);
-//     let totalRating= getAllRating.ratings.length;
-//     let ratingSum: getAllRating.ratings.map((post)=>post.star).reduce((prev, curr)=>(prev+curr))
-// let actualRating= Math.round(ratingSum/totalRating)
-//     res.json({ msg: "Rating updated successfully" });
-//     let finalRatedPost = await Post.findByIdAndUpdate(postId,{
-//       totalRating:actualRating,
-//     },{
-//       new:true
-//     }
-//     )
-//   } catch (error) {
-//     return res.status(500).json(finalRatedPost );
-//   }
-// };
 const rating = async (req, res) => {
   try {
     const { _id } = req.user;
@@ -319,6 +264,30 @@ const rating = async (req, res) => {
     return res.status(500).json({ msg: error.message });
   }
 };
+const toggleAvailability = async (req, res) => {
+  console.log("Params:", req.params);
+  console.log("Body:", req.body);
+  console.log("Headers:", req.headers);
+
+  try {
+    // console.log("Request:", req);
+    const postId = req.params.id;
+    console.log("postId:", postId);
+    const result = await Post.findById(req.params.id);
+    // console.log(result);
+    if (result) {
+      result.isAvailable = !result.isAvailable;
+      // save the updated post
+      await result.save();
+      return res.status(200).json(result);
+    } else {
+      console.log("Post not found with ID:", postId);
+      return res.status(404).json({ message: "Post not found" });
+    }
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
 
 module.exports = {
   createPost,
@@ -330,4 +299,5 @@ module.exports = {
   searchItem,
   filterPost,
   rating,
+  toggleAvailability,
 };

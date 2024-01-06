@@ -27,6 +27,9 @@ const userSchema = new Schema({
     enum: ["customer", "admin"],
     default: "customer",
   },
+  likedItems: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "Post", default: [] },
+  ],
   date: {
     type: Date,
     default: Date.now,
