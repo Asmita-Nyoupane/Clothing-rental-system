@@ -7,7 +7,7 @@ import Rent from "./Components/Rent/Rent";
 import Navbar from "./Components/Navbar/Navbar";
 import Signup from "./Components/Auth/Signup";
 import DataProvider from "./context/DataProvider";
-import About from "./Components/About";
+import About from "./Components/Footer/About";
 // import Getstarted from "./Components/About";
 import Details from "./Components/Details/Details";
 import Update from "./Components/Update/Update";
@@ -15,6 +15,7 @@ import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import Chatpage from "./Pages/ChatPage";
 import SearchResult from "./Pages/SearchResult";
 import Profile from "./Components/MyProfile/profile";
+import ContactForm from "./Components/Footer/contactForm";
 
 const App = () => {
   return (
@@ -45,6 +46,7 @@ const App = () => {
               }
             />
             <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<ContactForm />} />
             <Route path="/searchResult" element={<SearchResult />} />
             <Route path="/chatPage" element={<Chatpage />} />
             <Route

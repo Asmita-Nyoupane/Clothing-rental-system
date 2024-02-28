@@ -103,8 +103,8 @@ const getAllUser = async (req, res) => {
 const addLike = async (req, res) => {
   const userId = req.body.userId;
   const postId = req.body.postId;
-  console.log("userid", userId);
-  console.log("postid", postId);
+  // console.log("userid", userId);
+  // console.log("postid", postId);
   // find user and update the likes
   try {
     const user = await User.findByIdAndUpdate(
@@ -112,6 +112,7 @@ const addLike = async (req, res) => {
       { $addToSet: { likedItems: postId } }, // $addToSet adds the specified item to the array if it's not already present
       { new: true }
     );
+    console.log("Post likes");
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -140,6 +141,7 @@ const removeLike = async (req, res) => {
     return res.status(500).json({ msg: "Unable to add likes", error });
   }
 };
+const fetchLike = async (req, res) => {};
 
 module.exports = {
   signupUser,

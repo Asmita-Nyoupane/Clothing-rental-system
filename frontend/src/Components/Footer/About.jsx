@@ -1,8 +1,8 @@
 import React from "react";
-import MyImage from "../assets/aboutusimage.jpg";
+import MyImage from "../../assets/aboutusimage.jpg";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { DataContext } from "../context/DataProvider";
+import { DataContext } from "../../context/DataProvider";
 
 const paragraphStyle = {
   fontFamily: "Arial, sans-serif",

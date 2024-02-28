@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { FcLike } from "react-icons/fc";
 import { FaRegHeart } from "react-icons/fa";
 import { API } from "../../../service/api";
@@ -7,11 +7,33 @@ import { DataContext } from "../../../context/DataProvider";
 
 const LikePost = () => {
   const { id } = useParams();
-  const [likes, SetLikes] = useState(0);
-  const [isLiked, SetIsLiked] = useState(false);
+  const [likes, setLikes] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
   const { account } = useContext(DataContext);
   console.log("post id", id);
   console.log("user id", account._id);
+
+  useEffect(() => {
+    const fetchInitialLikes = async () => {
+      try {
+        // Fetch initial likes data from the server
+        const response = await API.fetchLikes({
+          userId: account._id,
+          postId: id,
+        });
+
+        if (response.isSuccess) {
+          setLikes(response.data.likes);
+          setIsLiked(response.data.isLiked);
+        }
+      } catch (error) {
+        console.error("Error fetching initial likes:", error);
+      }
+    };
+
+    fetchInitialLikes();
+  }, [account._id, id]);
+
   const handleLike = async () => {
     const userId = account._id;
     if (!isLiked) {
@@ -20,8 +42,9 @@ const LikePost = () => {
         postId: id,
       });
       if (response.isSuccess) {
-        SetLikes(likes + 1);
-        SetIsLiked(true);
+        setLikes((prevLikes) => prevLikes + 1);
+        console.log("Like added");
+        setIsLiked(true);
       }
     } else {
       const response = await API.removeLike({
@@ -29,8 +52,8 @@ const LikePost = () => {
         postId: id,
       });
       if (response.isSuccess) {
-        SetLikes(likes - 1);
-        SetIsLiked(false);
+        setLikes((prevLikes) => prevLikes - 1);
+        setIsLiked(false);
       }
     }
   };

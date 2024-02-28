@@ -125,7 +125,7 @@ const Details = () => {
               roundedCircle
               style={{ height: "50px", width: "50px" }}
             />
-            {account && token && <LikePost />}
+            {/* {account && token && <LikePost />} */}
             {
               <Link to="/chatPage">
                 <button

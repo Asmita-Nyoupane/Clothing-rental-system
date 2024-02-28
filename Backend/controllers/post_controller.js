@@ -19,6 +19,7 @@ const createPost = async (req, res) => {
       phone: req.body.phone,
       userId: req.body.userId,
       profilePic: req.body.profilePic,
+      address: req.body.address,
       location: {
         type: "Point",
         coordinates: [parseFloat(latitude), parseFloat(longitude)],
@@ -155,7 +156,7 @@ const searchItem = async (req, res) => {
       $or: [
         { name: { $regex: keyword, $options: "i" } },
         { type: { $regex: keyword, $options: "i" } },
-        { location: { $regex: keyword, $options: "i" } },
+        { address: { $regex: keyword, $options: "i" } },
         { description: { $regex: keyword, $options: "i" } },
       ],
     });

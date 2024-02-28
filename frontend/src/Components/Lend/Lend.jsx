@@ -20,6 +20,9 @@ const InitialPost = {
 const Lend = () => {
   const [post, setPost] = useState(InitialPost);
   const [rentPriceError, setRentPriceError] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
+  const [locationError, setLocationError] = useState("");
+  const [typeError, setTypeError] = useState("");
   const [uploadImageError, setuploadImageError] = useState("");
   const [file, setFile] = useState("");
   const { account } = useContext(DataContext);
@@ -51,13 +54,30 @@ const Lend = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
+    const address = post.location;
+    // validate the form
     if (name === "rentPrice" && !/^\d+$/.test(value)) {
       setRentPriceError("Rental price must contain only digits.");
     } else {
       setRentPriceError(""); // Clear the error message if the input is valid
     }
-
+    if (name === "description" && !/^[a-zA-Z0-9\s]{30,}$/.test(value)) {
+      setDescriptionError(
+        "Descrption should contain atleast 30 character containing only digits and character"
+      );
+    } else {
+      setDescriptionError(""); // Clear the error message if the input is valid
+    }
+    if (name === "location" && !/^[a-zA-Z0-9\s,]{5,}$/.test(value)) {
+      setLocationError("Invalid location");
+    } else {
+      setLocationError(""); // Clear the error message if the input is valid
+    }
+    if (name === "type" && !/^[a-zA-Z\s,]{3,}$/.test(value)) {
+      setTypeError("Invalid clothing type");
+    } else {
+      setTypeError(""); // Clear the error message if the input is valid
+    }
     setPost((prevPost) => ({
       ...prevPost,
       [name]: value,
@@ -65,6 +85,7 @@ const Lend = () => {
       phone: account.phone,
       userId: account._id,
       profilePic: account.image,
+      address: address,
     }));
   };
   const convertAddressToCoordinates = async () => {
@@ -89,6 +110,7 @@ const Lend = () => {
           return [lat, lng];
         } else {
           console.error("No results found for the entered location.");
+          setLocationError("Please enter the correct location");
         }
       } catch (error) {
         console.error("Error fetching geocoding data:", error.message);
@@ -106,6 +128,7 @@ const Lend = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     // Convert address to coordinates before submitting
     const coordinates = await convertAddressToCoordinates();
     console.log("Coordinates from convertAddressToCoordinates:", coordinates);
@@ -126,22 +149,41 @@ const Lend = () => {
       <h1 style={{ fontSize: "2rem", fontWeight: "bold" }}>Lend Form</h1>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
-          <label htmlFor="category">Category:</label>
-          <select
-            id="category"
-            name="category"
-            value={post.category}
-            onChange={handleInputChange}
-            required
-          >
-            <option value="">-- Select Category --</option>
-            <option value="casual-wear">Casual Wear</option>
-            <option value="wedding-wear">Wedding Wear</option>
-            <option value="outer-wear">Outer Wear</option>
-            <option value="other">Other</option>
-          </select>
+          <span>
+            <label htmlFor="category">Category:</label>
+            <select
+              id="category"
+              name="category"
+              value={post.category}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">-- Select Category --</option>
+              <option value="casual-wear">Casual Wear</option>
+              <option value="wedding-wear">Wedding Wear</option>
+              <option value="outer-wear">Outer Wear</option>
+              <option value="other">Other</option>
+            </select>
+          </span>
+          <span>
+            <label htmlFor="size">Size:</label>
+            <select
+              id="size"
+              name="size"
+              value={post.size}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">-- Select Size --</option>
+              <option value="XS">XS</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="XLL">XLL</option>
+            </select>
+          </span>
         </div>
-
         <div>
           <label htmlFor="rentPrice">Rent Price:</label>
           <input
@@ -157,7 +199,6 @@ const Lend = () => {
             <div className="error-message">{rentPriceError}</div>
           )}
         </div>
-
         <label>Gender:</label>
         <div className="gender-options">
           <input
@@ -194,7 +235,6 @@ const Lend = () => {
           <label htmlFor="other">Other</label>
         </div>
         <br></br>
-
         <label htmlFor="type">Type:</label>
         <input
           type="text"
@@ -205,6 +245,7 @@ const Lend = () => {
           required
           placeholder="example:Shirt, Pant, Lehenga"
         />
+        {typeError && <div className="error-message">{typeError}</div>}
         <label htmlFor="description">Description:</label>
         <textarea
           type="text"
@@ -214,35 +255,10 @@ const Lend = () => {
           onChange={handleInputChange}
           placeholder="material,color and condition of clothes "
         />
+        {descriptionError && (
+          <div className="error-message">{descriptionError}</div>
+        )}
 
-        {/* <label htmlFor="size">Size:</label>
-        <input
-          type="text"
-          id="size"
-          name="size"
-          value={post.size}
-          onChange={handleInputChange}
-          required
-          placeholder=" example: small, medium, large, x-large"
-        /> */}
-        <div>
-          <label htmlFor="size">Size:</label>
-          <select
-            id="size"
-            name="size"
-            value={post.size}
-            onChange={handleInputChange}
-            required
-          >
-            <option value="">-- Select Size --</option>
-            <option value="XS">XS</option>
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-            <option value="XLL">XLL</option>
-          </select>
-        </div>
         <label htmlFor="location">Location:</label>
         <input
           type="text"
@@ -252,7 +268,7 @@ const Lend = () => {
           onChange={handleInputChange}
           required
         />
-
+        {locationError && <div className="error-message">{locationError}</div>}
         <div>
           <label htmlFor="image">Upload Image:</label>
           <input
@@ -267,7 +283,6 @@ const Lend = () => {
             <div className="error-message">{uploadImageError}</div>
           )}
         </div>
-
         <button type="submit">Submit</button>
       </form>
     </div>

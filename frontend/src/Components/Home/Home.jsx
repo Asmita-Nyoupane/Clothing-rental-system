@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import fashionImage from "../../assets/fashion.webp";
+import Footer from "../Footer/Footer";
 import { DataContext } from "../../context/DataProvider";
 
 import "./Home.css";
@@ -44,6 +45,7 @@ const Home = () => {
           </Link>
         )}
       </div>
+      <Footer />
     </>
   );
 };
