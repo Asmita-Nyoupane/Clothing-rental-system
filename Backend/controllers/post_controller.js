@@ -122,7 +122,7 @@ const getNearByPosts = async (req, res) => {
     if (size) conditions.size = size;
     if (gender) conditions.gender = gender;
 
-    const radius = 8; // radius
+    const radius = 10; // radius
     const maxDistance = radius * 1000; // Convert radius to meters
 
     const nearbyPosts = await Post.aggregate([

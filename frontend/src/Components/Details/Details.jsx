@@ -197,12 +197,26 @@ const Details = () => {
                       textTransform: "capitalize",
                     }}
                   >
-                    <h6>Category: {post.category} </h6>
-                    <h6>Type: {post.type}</h6>
-                    <h6>Price: {post.rentPrice}</h6>
-                    <h6>Gender: {post.gender}</h6>
-                    <h6>Size: {post.size}</h6>
-                    <h6>Description: {post.description}</h6>
+                    <h6>
+                      <b>Category:</b> {post.category}
+                    </h6>
+                    <h6>
+                      <b>Type:</b> {post.type}
+                    </h6>
+                    <h6>
+                      <b>Price:</b> {post.rentPrice}
+                    </h6>
+                    <h6>
+                      <b>Gender: </b>
+                      {post.gender}
+                    </h6>
+                    <h6>
+                      <b>Size: </b>
+                      {post.size}
+                    </h6>
+                    <h6>
+                      <b>Description:</b> {post.description}
+                    </h6>
                   </div>
                   <br />
                   {console.log("account.name", account.name)}

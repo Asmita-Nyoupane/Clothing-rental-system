@@ -145,7 +145,9 @@ const Lend = () => {
   };
 
   return (
-    <div style={{ marginTop: "-10px" }}>
+    <div
+    // style={{ marginTop: "-10px" }}
+    >
       <h1 style={{ fontSize: "2rem", fontWeight: "bold" }}>Lend Form</h1>
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>

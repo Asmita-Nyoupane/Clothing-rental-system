@@ -91,7 +91,7 @@ export const SideDrawer = ({ contacts, changeChat }) => {
       Search User
       </span> } */}
         <span style={{ fontSize: "20px", fontFamily: "cursive" }}>
-          Chat with your Lender
+          Chat To Rent the Clothes
         </span>
         {/* <span>
           <i
