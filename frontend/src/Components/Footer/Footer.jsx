@@ -4,7 +4,7 @@ import facebookImg from "../../assets/facebook.png";
 import instaImg from "../../assets/instagram.png";
 import LinkedinImg from "../../assets/linkedin.png";
 import TwitterImg from "../../assets/twitter.png";
-import logo from "../../assets/logo.png";
+
 
 
 const footer = () => {
@@ -34,8 +34,8 @@ const footer = () => {
         style={{
           textDecoration: "none",
           color: "white",
-          textAlign:"left",
-           marginLeft: "30px",
+          // textAlign:"left",
+          marginLeft: "-1100px",
         }}
       >
         Contact us
@@ -59,6 +59,7 @@ const footer = () => {
                 <img src={TwitterImg}
                style={{ width: "32px", height: "32px", marginLeft:"15px" }}
                />
+      
     </footer>
   );
 };
