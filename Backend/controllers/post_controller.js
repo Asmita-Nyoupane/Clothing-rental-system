@@ -107,7 +107,7 @@ const getNearByPosts = async (req, res) => {
   try {
     const { latitude, longitude, category, maxRentPrice, size, gender } =
       req.query;
-    console.log("current user location inn backend", latitude, longitude);
+    console.log("current user location in backend", latitude, longitude);
 
     if (!latitude || !longitude) {
       return res

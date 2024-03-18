@@ -7,6 +7,13 @@ const Token = require("../models/Token");
 const signupUser = async (req, res) => {
   const { name, email, phone, password, image } = req.body;
   try {
+    // check if the email is already in use
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return res.status(400).json({ msg: "Email is already in use" });
+    }
+    // if email is unique then proceed
     const salt = await bcrypt.genSalt(15);
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = {

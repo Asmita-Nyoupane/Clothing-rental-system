@@ -40,7 +40,7 @@ const Signup = () => {
     }
   };
   const validateForm = (signup) => {
-    const nameRegex = /^[a-zA-Z\s]*$/;
+    const nameRegex = /^[a-zA-Z\s]{3,}$/;
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     const phoneRegex = /^\d{10}$/;
 
@@ -50,7 +50,7 @@ const Signup = () => {
     }
 
     if (!nameRegex.test(signup.name)) {
-      setError("Name should contain only alphabetic characters and spaces.");
+      setError("Name should contain atleast 3 character.");
       return false;
     }
 

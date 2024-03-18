@@ -5,8 +5,6 @@ import instaImg from "../../assets/instagram.png";
 import LinkedinImg from "../../assets/linkedin.png";
 import TwitterImg from "../../assets/twitter.png";
 
-
-
 const footer = () => {
   return (
     <footer
@@ -18,13 +16,12 @@ const footer = () => {
         textAlign: "center",
       }}
     >
-    
       <Link
         to="/about"
         style={{
           textDecoration: "none",
           color: "white",
-           marginLeft: "-1100px",
+          marginLeft: "-1100px",
         }}
       >
         ABOUT US
@@ -35,7 +32,7 @@ const footer = () => {
           textDecoration: "none",
           color: "white",
           // textAlign:"left",
-          marginLeft: "-1100px",
+          marginLeft: "-110px",
         }}
       >
         Contact us
@@ -46,20 +43,19 @@ const footer = () => {
       </p>
       <p>&copy; 2024 RentCycle</p>
       {/* <p>Follow us</p> */}
+      <img src={facebookImg} style={{ width: "25px", height: "25px" }} />
       <img
-              src={facebookImg}
-              style={{ width: "25px", height: "25px" }}
-              />
-              <img src={instaImg}
-               style={{ width: "25px", height: "25px", marginLeft:"15px" }}
-               />
-               <img src={LinkedinImg}
-               style={{ width: "31px", height: "31px", marginLeft:"15px" }}
-               />
-                <img src={TwitterImg}
-               style={{ width: "32px", height: "32px", marginLeft:"15px" }}
-               />
-      
+        src={instaImg}
+        style={{ width: "25px", height: "25px", marginLeft: "15px" }}
+      />
+      <img
+        src={LinkedinImg}
+        style={{ width: "31px", height: "31px", marginLeft: "15px" }}
+      />
+      <img
+        src={TwitterImg}
+        style={{ width: "32px", height: "32px", marginLeft: "15px" }}
+      />
     </footer>
   );
 };
